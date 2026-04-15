@@ -1,0 +1,14 @@
+stateDiagram-v2
+    [*] --> 待审核(PENDING) : 优礼汇提交申请(唯一性校验通过)
+    [*] --> 已驳回(REJECTED) : 优礼汇提交新增申请(商品编码已存在，系统自动驳回)
+    
+    待审核(PENDING) --> 已驳回(REJECTED) : 运营点击[驳回]
+    待审核(PENDING) --> 已驳回(REJECTED) : 运营点击[通过]，但标库8字段唯一性校验失败
+    
+    待审核(PENDING) --> 通过待同步(APPROVED_WAIT_CALLBACK) : 运营点击[通过]且入库成功
+    
+    通过待同步(APPROVED_WAIT_CALLBACK) --> 已完成同步(DONE) : 接口回传/同步成功
+    已完成同步(DONE) --> [*]
+    
+    通过待同步(APPROVED_WAIT_CALLBACK) --> 同步失败(CALLBACK_FAILED) : 接口回传/同步失败(超时/网络异常)
+    同步失败(CALLBACK_FAILED) --> 通过待同步(APPROVED_WAIT_CALLBACK) : 运营手动点击[重试同步]

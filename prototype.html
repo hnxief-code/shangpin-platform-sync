@@ -1,0 +1,1798 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>海典商品标库 · 优礼汇对接 · 可点击原型预览</title>
+    <style>
+      :root {
+        --topbar: #2e5aa6;
+        --primary: #0072ff;
+        --success: #00c161;
+        --warning: #fe8b00;
+        --danger: #fe222d;
+        --bg: #f5f5f5;
+        --panel: #ffffff;
+        --text: #222222;
+        --muted: #666666;
+        --subtle: #999999;
+        --border: #e7eaf0;
+        --thead: #edf0f5;
+        --selected: #eceef5;
+        --shadow: 0 10px 28px rgba(18, 28, 45, 0.08);
+        --shadow-soft: 0 6px 18px rgba(18, 28, 45, 0.08);
+        --radius-card: 6px;
+        --radius-module: 4px;
+        --nav-w: 240px;
+        --topbar-h: 60px;
+        --control-h: 36px;
+        --btn-h: 40px;
+        --btn2-h: 36px;
+        --font: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font);
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .app {
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: var(--topbar-h) 1fr;
+        grid-template-columns: var(--nav-w) 1fr;
+        grid-template-areas:
+          "top top"
+          "nav main";
+      }
+
+      .topbar {
+        grid-area: top;
+        height: var(--topbar-h);
+        background: var(--topbar);
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        color: #fff;
+        gap: 12px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      .brand-badge {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.18);
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      .topbar-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        opacity: 0.95;
+      }
+
+      .nav {
+        grid-area: nav;
+        background: #203c73;
+        color: rgba(255, 255, 255, 0.92);
+        padding: 12px 10px;
+      }
+
+      .nav-group {
+        margin-top: 6px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.76);
+        padding: 10px 10px 6px;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.15s ease;
+      }
+
+      .nav-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.14);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+      }
+
+      .nav-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      .main {
+        grid-area: main;
+        padding: 16px;
+        overflow: hidden;
+      }
+
+      .page {
+        height: calc(100vh - var(--topbar-h) - 32px);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+
+      .crumbs {
+        margin-left: 6px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        background: #fff;
+        white-space: nowrap;
+      }
+
+      .tag b {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .tag.primary {
+        border-color: rgba(0, 114, 255, 0.25);
+        background: rgba(0, 114, 255, 0.08);
+        color: #0b4db0;
+      }
+
+      .tag.success {
+        border-color: rgba(0, 193, 97, 0.25);
+        background: rgba(0, 193, 97, 0.1);
+        color: #067a43;
+      }
+
+      .tag.warning {
+        border-color: rgba(254, 139, 0, 0.25);
+        background: rgba(254, 139, 0, 0.1);
+        color: #9a4f00;
+      }
+
+      .tag.danger {
+        border-color: rgba(254, 34, 45, 0.25);
+        background: rgba(254, 34, 45, 0.08);
+        color: #a0101a;
+      }
+
+      .card {
+        background: var(--panel);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-soft);
+        border: 1px solid var(--border);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .card-body {
+        padding: 12px 14px;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        padding: 8px 8px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        box-shadow: 0 4px 10px rgba(18, 28, 45, 0.06);
+      }
+
+      .tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 34px;
+        padding: 0 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        user-select: none;
+        font-size: 14px;
+        color: var(--muted);
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+
+      .tab:hover {
+        background: rgba(0, 114, 255, 0.08);
+        color: #0b4db0;
+      }
+
+      .tab.active {
+        background: rgba(0, 114, 255, 0.14);
+        color: #0b4db0;
+        box-shadow: inset 0 0 0 1px rgba(0, 114, 255, 0.22);
+      }
+
+      .pill-count {
+        min-width: 20px;
+        height: 18px;
+        border-radius: 999px;
+        padding: 0 6px;
+        display: inline-grid;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.06);
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .filters {
+        display: grid;
+        grid-template-columns: 180px 180px 220px 220px 1fr;
+        gap: 10px;
+        align-items: end;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .label {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .control {
+        height: var(--control-h);
+        border-radius: var(--radius-module);
+        border: 1px solid var(--border);
+        padding: 0 10px;
+        font-size: 14px;
+        background: #fff;
+        outline: none;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
+      }
+
+      .control:focus {
+        border-color: rgba(0, 114, 255, 0.4);
+        box-shadow: 0 0 0 4px rgba(0, 114, 255, 0.12);
+      }
+
+      .btns {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        height: var(--btn-h);
+        border-radius: var(--radius-module);
+        border: 1px solid transparent;
+        padding: 0 14px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: transform 0.05s ease, filter 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn.primary {
+        background: var(--primary);
+        color: #fff;
+        box-shadow: 0 10px 18px rgba(0, 114, 255, 0.18);
+      }
+
+      .btn.secondary {
+        height: var(--btn2-h);
+        background: #fff;
+        color: var(--text);
+        border-color: var(--border);
+      }
+
+      .btn.danger {
+        height: var(--btn2-h);
+        background: rgba(254, 34, 45, 0.1);
+        color: #a0101a;
+        border-color: rgba(254, 34, 45, 0.2);
+      }
+
+      .btn.ghost {
+        height: var(--btn2-h);
+        background: transparent;
+        color: var(--muted);
+        border-color: transparent;
+      }
+
+      .btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .table-wrap {
+        overflow: auto;
+        border-radius: var(--radius-card);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      thead th {
+        background: var(--thead);
+        color: var(--muted);
+        font-weight: 600;
+        text-align: left;
+        padding: 10px 10px;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+
+      tbody td {
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--border);
+        background: #fff;
+        vertical-align: middle;
+      }
+
+      tbody tr:hover td {
+        background: rgba(0, 114, 255, 0.04);
+      }
+
+      .row-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .link {
+        color: #0b4db0;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      .content-scroll {
+        flex: 1;
+        overflow: auto;
+        padding-bottom: 72px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .group-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        margin: 0 0 8px;
+      }
+
+      .kv {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 10px;
+        padding: 10px 10px;
+        border-radius: var(--radius-module);
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+
+      .kv .k {
+        color: var(--muted);
+      }
+
+      .kv .v {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 14px;
+      }
+
+      .form-item {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .form-item .f-label {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .form-item .f-val {
+        min-height: var(--control-h);
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        border-radius: var(--radius-module);
+        border: 1px solid var(--border);
+        background: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .form-item .f-val.mono {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-weight: 600;
+      }
+
+      .form-item.full {
+        grid-column: 1 / -1;
+        grid-template-columns: 120px 1fr;
+        align-items: start;
+      }
+
+      .textarea-val {
+        padding: 10px 10px;
+        min-height: 88px;
+        align-items: flex-start;
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+      }
+
+      .media-tile {
+        aspect-ratio: 1 / 1;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background:
+          radial-gradient(120px 120px at 30% 25%, rgba(0, 114, 255, 0.18), transparent 60%),
+          radial-gradient(120px 120px at 70% 70%, rgba(0, 193, 97, 0.14), transparent 60%),
+          #ffffff;
+        box-shadow: 0 8px 16px rgba(18, 28, 45, 0.06);
+        display: grid;
+        place-items: center;
+        color: rgba(34, 34, 34, 0.75);
+        cursor: pointer;
+        user-select: none;
+        transition: transform 0.08s ease, box-shadow 0.18s ease;
+        font-weight: 700;
+      }
+
+      .media-tile:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 22px rgba(18, 28, 45, 0.1);
+      }
+
+      .file-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .file {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+
+      .file .name {
+        font-weight: 600;
+      }
+
+      .file .meta {
+        font-size: 12px;
+        color: var(--subtle);
+      }
+
+      .diff-table td.apply-off {
+        color: var(--subtle);
+      }
+
+      .checkbox {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        background: #fff;
+        display: inline-grid;
+        place-items: center;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .checkbox.on {
+        background: rgba(0, 114, 255, 0.14);
+        border-color: rgba(0, 114, 255, 0.28);
+        box-shadow: 0 0 0 4px rgba(0, 114, 255, 0.12);
+      }
+
+      .checkbox.on::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 3px;
+        background: var(--primary);
+      }
+
+      .bottom-bar {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        margin-top: -62px;
+        padding: 10px 0 0;
+        background: linear-gradient(to bottom, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.86) 35%, rgba(245, 245, 245, 1));
+      }
+
+      .bottom-inner {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-card);
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: var(--shadow);
+      }
+
+      .bottom-left {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .bottom-right {
+        margin-left: auto;
+        display: flex;
+        gap: 10px;
+      }
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 28, 45, 0.52);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        z-index: 50;
+      }
+
+      .overlay.show {
+        display: flex;
+      }
+
+      .modal {
+        width: min(720px, 100%);
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+        overflow: hidden;
+      }
+
+      .modal-header {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .modal-title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .modal-body {
+        padding: 14px 16px;
+      }
+
+      .modal-actions {
+        padding: 12px 16px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .text-area {
+        width: 100%;
+        min-height: 110px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        padding: 10px 10px;
+        font-size: 14px;
+        font-family: var(--font);
+        outline: none;
+        resize: vertical;
+      }
+
+      .text-area:focus {
+        border-color: rgba(0, 114, 255, 0.4);
+        box-shadow: 0 0 0 4px rgba(0, 114, 255, 0.12);
+      }
+
+      .hint {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        background: rgba(34, 34, 34, 0.92);
+        color: #fff;
+        padding: 10px 12px;
+        border-radius: 999px;
+        font-size: 14px;
+        display: none;
+        z-index: 60;
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+      }
+
+      .toast.show {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .kbd {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+        padding: 2px 6px;
+        font-size: 12px;
+      }
+
+      .empty {
+        padding: 28px 0;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      @media (max-width: 1280px) {
+        .filters {
+          grid-template-columns: 1fr 1fr;
+        }
+        .media-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-badge">HD</div>
+          海典商品标库 · 优礼汇对接原型
+        </div>
+        <div class="topbar-right">
+          <span class="kbd">点击表格“审核”进入详情</span>
+          <span>运营审核员</span>
+        </div>
+      </div>
+
+      <div class="nav">
+        <div class="nav-group">商品数据填报</div>
+        <div class="nav-item active" data-nav="audit">
+          <span class="nav-dot"></span>
+          平台商品资料审核
+        </div>
+        <div class="nav-group">参考截图</div>
+        <div class="nav-item" data-nav="shots">
+          <span class="nav-dot"></span>
+          图片内容说明
+        </div>
+      </div>
+
+      <div class="main">
+        <div id="root"></div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal" id="modal"></div>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+      const PLATFORM_LABEL = {
+        YOU_LI_HUI: "优礼汇",
+        ERP: "客户ERP",
+        OMS: "客户OMS"
+      }
+
+      const STATUS_LABEL = {
+        PENDING: { text: "待审核", tone: "warning" },
+        REJECTED: { text: "已驳回", tone: "danger" },
+        APPROVED_WAIT_CALLBACK: { text: "通过待回传", tone: "primary" },
+        DONE: { text: "已完成闭环", tone: "success" },
+        CALLBACK_FAILED: { text: "回传失败", tone: "danger" }
+      }
+
+      const now = () => new Date().toISOString().slice(0, 19).replace("T", " ")
+
+      const store = {
+        ui: {
+          activePlatform: "ALL",
+          filterStatus: "",
+          filterCallback: "",
+          filterKeyword: "",
+          filterDate: ""
+        },
+        tickets: [
+          {
+            id: "T202604130001",
+            platformId: "YOU_LI_HUI",
+            type: "NEW",
+            status: "PENDING",
+            callback: "",
+            sourceGoodsCode: "YLH-000312",
+            goodsName: "医用酒精棉片",
+            barcode: "6931234567890",
+            submitter: "优礼汇-运营A",
+            createdAt: "2026-04-13 10:12:30",
+            platformCode: "",
+            fields: {
+              productCode: "000312",
+              productName: "医用酒精棉片",
+              taxCode: "A123456",
+              taxName: "消毒用品",
+              category: "消毒/防护",
+              barcode: "6931234567890",
+              spec: "50片/盒",
+              unit: "盒",
+              cartonSpec: "1箱=40盒",
+              minBatch: "1",
+              manufacturer: "某某医疗器械有限公司",
+              serviceProvider: "优礼汇自营",
+              origin: "湖南长沙",
+              invoiceType: "普票",
+              taxRate: "13%",
+              shelfLifeDays: "730",
+              tags: "医疗,消毒",
+              virtualSales: "0",
+              remark: "图片齐全后可快速上架",
+            },
+            media: {
+              images: ["主图1", "主图2", "主图3", "主图4"],
+              video: "商品主视频.mp4",
+              attachments: [{ name: "资质证明.pdf", size: "1.2MB" }, { name: "说明书.docx", size: "820KB" }],
+            },
+          },
+          {
+            id: "T202604130002",
+            platformId: "YOU_LI_HUI",
+            type: "EDIT",
+            status: "CALLBACK_FAILED",
+            callback: "FAIL",
+            sourceGoodsCode: "YLH-001028",
+            goodsName: "一次性口罩",
+            barcode: "6900000012345",
+            submitter: "优礼汇-运营B",
+            createdAt: "2026-04-13 09:03:11",
+            platformCode: "HD-YLH-210023",
+            rejectReason: "",
+            diffs: [
+              { key: "goodsName", name: "商品名", oldValue: "一次性口罩", newValue: "一次性医用口罩", apply: true },
+              { key: "unit", name: "单位", oldValue: "包", newValue: "盒", apply: true },
+              { key: "shelfLifeDays", name: "保质期(天)", oldValue: "365", newValue: "730", apply: true },
+              { key: "category", name: "商品分类", oldValue: "防护用品", newValue: "防护/医用", apply: true }
+            ],
+            imageDiff: { old: ["原图1"], next: ["新图1"], apply: true },
+            fields: {
+              productCode: "001028",
+              productName: "一次性口罩",
+              barcode: "6900000012345",
+              unit: "包",
+              category: "防护用品",
+              shelfLifeDays: "365"
+            }
+          },
+          {
+            id: "T202604130003",
+            platformId: "ERP",
+            type: "NEW",
+            status: "DONE",
+            callback: "SUCCESS",
+            sourceGoodsCode: "ERP-777901",
+            goodsName: "维生素C泡腾片",
+            barcode: "6970000076543",
+            submitter: "ERP同步",
+            createdAt: "2026-04-12 16:40:05",
+            platformCode: "HD-ERP-982331",
+            fields: { productName: "维生素C泡腾片" },
+            media: { images: ["主图1"] },
+          }
+        ],
+        callbackPlan: new Map()
+      }
+
+      const el = (tag, attrs = {}, children = []) => {
+        const node = document.createElement(tag)
+        for (const [k, v] of Object.entries(attrs)) {
+          if (k === "class") node.className = v
+          else if (k === "html") node.innerHTML = v
+          else if (k.startsWith("on") && typeof v === "function") node.addEventListener(k.slice(2).toLowerCase(), v)
+          else node.setAttribute(k, v)
+        }
+        for (const child of Array.isArray(children) ? children : [children]) {
+          if (child === null || child === undefined) continue
+          node.appendChild(typeof child === "string" ? document.createTextNode(child) : child)
+        }
+        return node
+      }
+
+      const toast = (text) => {
+        const t = document.getElementById("toast")
+        t.textContent = text
+        t.classList.add("show")
+        window.clearTimeout(toast._timer)
+        toast._timer = window.setTimeout(() => t.classList.remove("show"), 1800)
+      }
+
+      const openModal = ({ title, body, actions }) => {
+        const overlay = document.getElementById("overlay")
+        const modal = document.getElementById("modal")
+        modal.replaceChildren(
+          el("div", { class: "modal-header" }, [el("div", { class: "modal-title" }, title)]),
+          el("div", { class: "modal-body" }, body),
+          el("div", { class: "modal-actions" }, actions)
+        )
+        overlay.classList.add("show")
+        overlay.setAttribute("aria-hidden", "false")
+      }
+
+      const closeModal = () => {
+        const overlay = document.getElementById("overlay")
+        overlay.classList.remove("show")
+        overlay.setAttribute("aria-hidden", "true")
+      }
+
+      document.getElementById("overlay").addEventListener("click", (e) => {
+        if (e.target.id === "overlay") closeModal()
+      })
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal()
+      })
+
+      const navTo = (hash) => {
+        window.location.hash = hash
+      }
+
+      const getTicket = (id) => store.tickets.find((t) => t.id === id)
+
+      const tagNode = (tone, label) => el("span", { class: `tag ${tone}` }, label)
+
+      const statusTag = (ticket) => {
+        const s = STATUS_LABEL[ticket.status] || { text: ticket.status, tone: "" }
+        return tagNode(s.tone, s.text)
+      }
+
+      const platformTag = (platformId) => tagNode("primary", `来源平台：${PLATFORM_LABEL[platformId] || platformId}`)
+
+      const renderShots = () => {
+        const root = document.getElementById("root")
+        root.replaceChildren(
+          el("div", { class: "page" }, [
+            el("div", { class: "page-header" }, [
+              el("div", { class: "page-title" }, "图片内容说明"),
+              el("div", { class: "crumbs" }, "参考截图用于还原字段与页面布局")
+            ]),
+            el("div", { class: "card" }, [
+              el("div", { class: "card-header" }, [el("div", { class: "card-title" }, "三张参考截图")]),
+              el("div", { class: "card-body" }, [
+                el("div", { class: "hint" }, [
+                  "当前原型已按截图字段生成：优礼汇新增商品信息（基础/详细/图片/视频/资质），运营平台新增审核表单，以及修改审核差异表（字段+图片）。",
+                  el("div", { style: "height:10px" }),
+                  "如需把截图也作为原型背景参照，可将截图另存为同目录并自行打开查看。"
+                ])
+              ])
+            ])
+          ])
+        )
+      }
+
+      const renderList = () => {
+        const root = document.getElementById("root")
+
+        const platforms = [
+          { id: "ALL", name: "全部" },
+          { id: "YOU_LI_HUI", name: "优礼汇" },
+          { id: "ERP", name: "客户ERP" },
+          { id: "OMS", name: "客户OMS" }
+        ]
+
+        const filtered = store.tickets
+          .filter((t) => (store.ui.activePlatform === "ALL" ? true : t.platformId === store.ui.activePlatform))
+          .filter((t) => (store.ui.filterStatus ? t.status === store.ui.filterStatus : true))
+          .filter((t) => (store.ui.filterCallback ? (store.ui.filterCallback === "NONE" ? !t.callback : t.callback === store.ui.filterCallback) : true))
+          .filter((t) => {
+            if (!store.ui.filterKeyword) return true
+            const kw = store.ui.filterKeyword.trim()
+            if (!kw) return true
+            return `${t.sourceGoodsCode} ${t.goodsName} ${t.barcode}`.includes(kw)
+          })
+
+        const counts = platforms.reduce((acc, p) => {
+          acc[p.id] = store.tickets.filter((t) => (p.id === "ALL" ? true : t.platformId === p.id)).length
+          return acc
+        }, {})
+
+        const header = el("div", { class: "page-header" }, [
+          el("div", { class: "page-title" }, "平台商品审核"),
+          el("div", { class: "crumbs" }, "商品数据填报 / 平台商品资料审核")
+        ])
+
+        const tabs = el(
+          "div",
+          { class: "tabs" },
+          platforms.map((p) =>
+            el(
+              "div",
+              {
+                class: `tab ${store.ui.activePlatform === p.id ? "active" : ""}`,
+                onClick: () => {
+                  store.ui.activePlatform = p.id
+                  render()
+                },
+              },
+              [p.name, el("span", { class: "pill-count" }, String(counts[p.id] || 0))]
+            )
+          )
+        )
+
+        const filters = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [el("div", { class: "card-title" }, "检索")]),
+          el("div", { class: "card-body" }, [
+            el("div", { class: "filters" }, [
+              el("div", { class: "field" }, [
+                el("div", { class: "label" }, "审核状态"),
+                (() => {
+                  const s = el("select", {
+                    class: "control",
+                    onChange: (e) => {
+                      store.ui.filterStatus = e.target.value
+                    },
+                  })
+                  ;[
+                    ["", "全部"],
+                    ["PENDING", "待审核"],
+                    ["REJECTED", "已驳回"],
+                    ["APPROVED_WAIT_CALLBACK", "通过待回传"],
+                    ["DONE", "已完成闭环"],
+                    ["CALLBACK_FAILED", "回传失败"]
+                  ].forEach(([v, t]) => {
+                    const opt = el("option", { value: v }, t)
+                    if (store.ui.filterStatus === v) opt.selected = true
+                    s.appendChild(opt)
+                  })
+                  return s
+                })()
+              ]),
+              el("div", { class: "field" }, [
+                el("div", { class: "label" }, "回传状态"),
+                (() => {
+                  const s = el("select", {
+                    class: "control",
+                    onChange: (e) => {
+                      store.ui.filterCallback = e.target.value
+                    },
+                  })
+                  ;[
+                    ["", "全部"],
+                    ["SUCCESS", "成功"],
+                    ["FAIL", "失败"],
+                    ["NONE", "无"]
+                  ].forEach(([v, t]) => {
+                    const opt = el("option", { value: v }, t)
+                    if (store.ui.filterCallback === v) opt.selected = true
+                    s.appendChild(opt)
+                  })
+                  return s
+                })()
+              ]),
+              el("div", { class: "field" }, [
+                el("div", { class: "label" }, "编码/名称/条码"),
+                el("input", {
+                  class: "control",
+                  value: store.ui.filterKeyword,
+                  placeholder: "输入关键词",
+                  onInput: (e) => {
+                    store.ui.filterKeyword = e.target.value
+                  },
+                })
+              ]),
+              el("div", { class: "field" }, [
+                el("div", { class: "label" }, "提交时间(演示)"),
+                el("input", {
+                  class: "control",
+                  value: store.ui.filterDate,
+                  placeholder: "YYYY-MM-DD",
+                  onInput: (e) => {
+                    store.ui.filterDate = e.target.value
+                  },
+                })
+              ]),
+              el("div", { class: "btns" }, [
+                el(
+                  "button",
+                  {
+                    class: "btn secondary",
+                    onClick: () => {
+                      store.ui.filterStatus = ""
+                      store.ui.filterCallback = ""
+                      store.ui.filterKeyword = ""
+                      store.ui.filterDate = ""
+                      render()
+                    },
+                  },
+                  "重置"
+                ),
+                el(
+                  "button",
+                  {
+                    class: "btn primary",
+                    onClick: () => {
+                      render()
+                    },
+                  },
+                  "查询"
+                )
+              ])
+            ])
+          ])
+        ])
+
+        const table = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [
+            el("div", { class: "card-title" }, "审核列表"),
+            el("div", { style: "margin-left:auto" }, [tagNode("primary", `共 ${filtered.length} 条`)])
+          ]),
+          el("div", { class: "table-wrap" }, [
+            el("table", {}, [
+              el("thead", {}, [
+                el("tr", {}, [
+                  el("th", {}, "来源平台"),
+                  el("th", {}, "平台商品编码"),
+                  el("th", {}, "商品名称"),
+                  el("th", {}, "条码"),
+                  el("th", {}, "提交人"),
+                  el("th", {}, "提交时间"),
+                  el("th", {}, "状态"),
+                  el("th", {}, "回传"),
+                  el("th", {}, "操作")
+                ])
+              ]),
+              el(
+                "tbody",
+                {},
+                filtered.length
+                  ? filtered.map((t) => {
+                      const canRetry = t.status === "CALLBACK_FAILED"
+                      const go = () => navTo(t.type === "NEW" ? `#/audit/new/${t.id}` : `#/audit/edit/${t.id}`)
+                      const retry = () => simulateCallback(t, true)
+                      return el("tr", {}, [
+                        el("td", {}, PLATFORM_LABEL[t.platformId] || t.platformId),
+                        el("td", {}, el("span", { class: "f-val mono", style: "padding:6px 10px;border-radius:10px;display:inline-flex" }, t.sourceGoodsCode)),
+                        el("td", {}, t.goodsName),
+                        el("td", {}, t.barcode || "-"),
+                        el("td", {}, t.submitter || "-"),
+                        el("td", {}, t.createdAt || "-"),
+                        el("td", {}, statusTag(t)),
+                        el("td", {}, t.callback === "SUCCESS" ? tagNode("success", "成功") : t.callback === "FAIL" ? tagNode("danger", "失败") : tagNode("", "无")),
+                        el("td", {}, [
+                          el("div", { class: "row-actions" }, [
+                            el("span", { class: "link", onClick: go }, t.status === "PENDING" ? "审核" : "查看"),
+                            canRetry ? el("span", { class: "link", onClick: retry }, "重试回传") : el("span", { style: "color:#999" }, "")
+                          ])
+                        ])
+                      ])
+                    })
+                  : el("tr", {}, [el("td", { colspan: "9" }, el("div", { class: "empty" }, "暂无数据"))])
+              )
+            ])
+          ])
+        ])
+
+        root.replaceChildren(el("div", { class: "page" }, [header, tabs, filters, el("div", { class: "content-scroll" }, [table])]))
+      }
+
+      const simulateCallback = (ticket, forceRetry = false) => {
+        if (!ticket.platformCode) {
+          ticket.platformCode = `HD-${ticket.platformId === "YOU_LI_HUI" ? "YLH" : ticket.platformId}-${Math.floor(100000 + Math.random() * 900000)}`
+        }
+        ticket.status = "APPROVED_WAIT_CALLBACK"
+        ticket.callback = ""
+        render()
+        toast("已通过，平台编码已生成，正在回传优礼汇平台编码…")
+
+        const planned = store.callbackPlan.get(ticket.id)
+        let willSuccess
+        if (planned !== undefined && !forceRetry) willSuccess = planned
+        else willSuccess = ticket.id.endsWith("2") ? false : true
+        store.callbackPlan.set(ticket.id, true)
+
+        window.setTimeout(() => {
+          if (willSuccess) {
+            ticket.status = "DONE"
+            ticket.callback = "SUCCESS"
+            toast("回传成功，已完成闭环对码")
+          } else {
+            ticket.status = "CALLBACK_FAILED"
+            ticket.callback = "FAIL"
+            toast("回传失败，可在列表或详情点击重试")
+          }
+          render()
+        }, 1100)
+      }
+
+      const rejectTicket = (ticket) => {
+        const ta = el("textarea", { class: "text-area", placeholder: "请输入驳回原因（必填）" })
+        const msg = el("div", { class: "hint" }, "驳回后将把原因回传给优礼汇侧，并将单据状态置为“已驳回”。")
+        openModal({
+          title: "审核驳回",
+          body: [msg, el("div", { style: "height:10px" }), ta],
+          actions: [
+            el("button", { class: "btn secondary", onClick: closeModal }, "取消"),
+            el("button", {
+              class: "btn danger",
+              onClick: () => {
+                const v = ta.value.trim()
+                if (!v) {
+                  toast("请填写驳回原因")
+                  ta.focus()
+                  return
+                }
+                ticket.status = "REJECTED"
+                ticket.rejectReason = v
+                closeModal()
+                toast("已驳回并记录原因")
+                navTo("#/audit")
+                render()
+              },
+            }, "确认驳回")
+          ]
+        })
+        window.setTimeout(() => ta.focus(), 50)
+      }
+
+      const approveTicket = (ticket) => {
+        openModal({
+          title: "审核通过确认",
+          body: [
+            el("div", { class: "hint" }, [
+              "通过后将写入平台商品库并生成唯一平台编码，然后回传至优礼汇商品资料的“平台编码”字段用于对码。",
+              el("div", { style: "height:6px" }),
+              el("div", { class: "kv" }, [
+                el("div", { class: "k" }, "平台商品编码"),
+                el("div", { class: "v mono" }, ticket.sourceGoodsCode),
+                el("div", { class: "k" }, "商品名称"),
+                el("div", { class: "v" }, ticket.goodsName)
+              ])
+            ])
+          ],
+          actions: [
+            el("button", { class: "btn secondary", onClick: closeModal }, "取消"),
+            el("button", {
+              class: "btn primary",
+              onClick: () => {
+                closeModal()
+                simulateCallback(ticket)
+              },
+            }, "确认通过")
+          ]
+        })
+      }
+
+      const previewMedia = (title, items) => {
+        let idx = 0
+        const titleEl = el("div", { class: "modal-title" }, "")
+        const tile = el("div", { style: "height:360px;border-radius:14px;border:1px solid var(--border);display:grid;place-items:center;background:radial-gradient(220px 220px at 30% 25%, rgba(0,114,255,0.18), transparent 60%),radial-gradient(220px 220px at 70% 70%, rgba(0,193,97,0.14), transparent 60%),#fff;font-size:20px;font-weight:800;color:rgba(34,34,34,0.78)" }, "")
+        const renderOne = () => {
+          titleEl.textContent = `${title} · ${idx + 1}/${items.length}`
+          tile.textContent = items[idx]
+        }
+        renderOne()
+        openModal({
+          title: titleEl.textContent,
+          body: [tile],
+          actions: [
+            el("button", {
+              class: "btn secondary",
+              onClick: () => {
+                idx = (idx - 1 + items.length) % items.length
+                renderOne()
+                document.querySelector("#modal .modal-title").textContent = titleEl.textContent
+              },
+            }, "上一张"),
+            el("button", {
+              class: "btn secondary",
+              onClick: () => {
+                idx = (idx + 1) % items.length
+                renderOne()
+                document.querySelector("#modal .modal-title").textContent = titleEl.textContent
+              },
+            }, "下一张"),
+            el("button", { class: "btn primary", onClick: closeModal }, "关闭")
+          ]
+        })
+      }
+
+      const renderNewDetail = (id) => {
+        const ticket = getTicket(id)
+        const root = document.getElementById("root")
+        if (!ticket) {
+          root.replaceChildren(el("div", { class: "page" }, [el("div", { class: "empty" }, "单据不存在")]))
+          return
+        }
+
+        const header = el("div", { class: "page-header" }, [
+          el("div", { class: "page-title" }, "新增商品审核"),
+          el("div", { class: "crumbs" }, "平台商品审核 / 新增审核详情"),
+          platformTag(ticket.platformId),
+          statusTag(ticket),
+          ticket.platformCode ? tagNode("success", `平台编码：${ticket.platformCode}`) : null,
+          ticket.status === "CALLBACK_FAILED"
+            ? el(
+                "button",
+                {
+                  class: "btn secondary",
+                  style: "margin-left:auto",
+                  onClick: () => simulateCallback(ticket, true),
+                },
+                "重试回传"
+              )
+            : el("div", { style: "margin-left:auto" }, ""),
+        ])
+
+        const info = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [el("div", { class: "card-title" }, "来源信息")]),
+          el("div", { class: "card-body" }, [
+            el("div", { class: "grid-2" }, [
+              el("div", { class: "kv" }, [el("div", { class: "k" }, "来源平台"), el("div", { class: "v" }, PLATFORM_LABEL[ticket.platformId])]),
+              el("div", { class: "kv" }, [el("div", { class: "k" }, "平台商品编码"), el("div", { class: "v mono" }, ticket.sourceGoodsCode)]),
+              el("div", { class: "kv" }, [el("div", { class: "k" }, "提交人"), el("div", { class: "v" }, ticket.submitter || "-")]),
+              el("div", { class: "kv" }, [el("div", { class: "k" }, "提交时间"), el("div", { class: "v mono" }, ticket.createdAt || "-")]),
+            ]),
+          ]),
+        ])
+
+        const f = ticket.fields || {}
+        const requiredMark = (name) => `${name}*`
+        const groupA = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [el("div", { class: "card-title" }, "基础信息")]),
+          el("div", { class: "card-body" }, [
+            el("div", { class: "form-grid" }, [
+              ["商品编码", f.productCode, true, "mono"],
+              ["商品名称", f.productName, true, ""],
+              ["税务编码", f.taxCode, true, "mono"],
+              ["税务品名", f.taxName, true, ""],
+              ["商品分类", f.category, true, ""],
+              ["条形码", f.barcode, true, "mono"],
+              ["规格", f.spec, true, ""],
+              ["单位", f.unit, true, ""],
+              ["箱规", f.cartonSpec, true, ""],
+              ["起批数", f.minBatch, true, "mono"]
+            ].map(([k, v, req, mono]) =>
+              el("div", { class: "form-item" }, [
+                el("div", { class: "f-label" }, req ? requiredMark(k) : k),
+                el("div", { class: `f-val ${mono ? "mono" : ""}` }, v || "-"),
+              ])
+            ),
+          ]),
+        ])
+
+        const groupB = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [el("div", { class: "card-title" }, "详细信息")]),
+          el("div", { class: "card-body" }, [
+            el("div", { class: "form-grid" }, [
+              ["生产企业", f.manufacturer, true, ""],
+              ["服务商", f.serviceProvider, false, ""],
+              ["产地", f.origin, true, ""],
+              ["发票类型", f.invoiceType, false, ""],
+              ["税率", f.taxRate, false, ""],
+              ["保质期(天)", f.shelfLifeDays, true, "mono"],
+              ["标签", f.tags, false, ""],
+              ["虚拟销量", f.virtualSales, false, "mono"]
+            ].map(([k, v, req, mono]) =>
+              el("div", { class: "form-item" }, [
+                el("div", { class: "f-label" }, req ? requiredMark(k) : k),
+                el("div", { class: `f-val ${mono ? "mono" : ""}` }, v || "-"),
+              ])
+            ),
+            el("div", { class: "form-item full", style: "margin-top:12px" }, [
+              el("div", { class: "f-label" }, "备注"),
+              el("div", { class: "f-val textarea-val" }, f.remark || "-"),
+            ]),
+          ]),
+        ])
+
+        const images = (ticket.media && ticket.media.images) || []
+        const media = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [el("div", { class: "card-title" }, "多媒体与附件")]),
+          el("div", { class: "card-body" }, [
+            el("div", { class: "group-title" }, requiredMark("商品主图")),
+            images.length
+              ? el(
+                  "div",
+                  { class: "media-grid" },
+                  images.map((name) =>
+                    el("div", {
+                      class: "media-tile",
+                      onClick: () => previewMedia("商品主图预览", images),
+                    }, name)
+                  )
+                )
+              : el("div", { class: "empty" }, "暂无主图"),
+            el("div", { style: "height:14px" }),
+            el("div", { class: "group-title" }, "商品主视频"),
+            el("div", { class: "file" }, [
+              el("div", {}, [el("div", { class: "name" }, (ticket.media && ticket.media.video) || "无")]),
+              el("div", { class: "meta" }, "预览"),
+            ]),
+            el("div", { style: "height:14px" }),
+            el("div", { class: "group-title" }, "商品资质"),
+            el(
+              "div",
+              { class: "file-list" },
+              ((ticket.media && ticket.media.attachments) || []).map((a) =>
+                el("div", { class: "file" }, [
+                  el("div", {}, [el("div", { class: "name" }, a.name), el("div", { class: "meta" }, a.size)]),
+                  el(
+                    "span",
+                    {
+                      class: "link",
+                      onClick: () => toast("原型演示：此处触发下载"),
+                    },
+                    "下载"
+                  ),
+                ])
+              )
+            ),
+          ]),
+        ])
+
+        const bottom = el("div", { class: "bottom-bar" }, [
+          el("div", { class: "bottom-inner" }, [
+            el("div", { class: "bottom-left" }, [
+              platformTag(ticket.platformId),
+              statusTag(ticket),
+              ticket.platformCode ? tagNode("success", `平台编码：${ticket.platformCode}`) : tagNode("", "未生成平台编码"),
+            ]),
+            el("div", { class: "bottom-right" }, [
+              el(
+                "button",
+                {
+                  class: "btn ghost",
+                  onClick: () => navTo("#/audit"),
+                },
+                "返回"
+              ),
+              el(
+                "button",
+                {
+                  class: "btn danger",
+                  disabled: ticket.status !== "PENDING",
+                  onClick: () => rejectTicket(ticket),
+                },
+                "审核驳回"
+              ),
+              el(
+                "button",
+                {
+                  class: "btn primary",
+                  disabled: ticket.status !== "PENDING",
+                  onClick: () => approveTicket(ticket),
+                },
+                "审核通过"
+              ),
+            ]),
+          ]),
+        ])
+
+        root.replaceChildren(el("div", { class: "page" }, [header, el("div", { class: "content-scroll" }, [info, groupA, groupB, media]), bottom]))
+      }
+
+      const renderEditDetail = (id) => {
+        const ticket = getTicket(id)
+        const root = document.getElementById("root")
+        if (!ticket) {
+          root.replaceChildren(el("div", { class: "page" }, [el("div", { class: "empty" }, "单据不存在")]))
+          return
+        }
+
+        const header = el("div", { class: "page-header" }, [
+          el("div", { class: "page-title" }, "商品资料修改审核"),
+          el("div", { class: "crumbs" }, "平台商品审核 / 修改审核详情"),
+          platformTag(ticket.platformId),
+          statusTag(ticket),
+          ticket.platformCode ? tagNode("success", `平台编码：${ticket.platformCode}`) : null,
+          ticket.status === "CALLBACK_FAILED"
+            ? el(
+                "button",
+                {
+                  class: "btn secondary",
+                  style: "margin-left:auto",
+                  onClick: () => simulateCallback(ticket, true),
+                },
+                "重试回传"
+              )
+            : el("div", { style: "margin-left:auto" }, ""),
+        ])
+
+        const diffRows = (ticket.diffs || []).map((d) => {
+          const chk = el("span", {
+            class: `checkbox ${d.apply ? "on" : ""}`,
+            onClick: () => {
+              d.apply = !d.apply
+              render()
+            },
+          })
+          return el("tr", {}, [
+            el("td", {}, d.name),
+            el("td", { class: d.apply ? "" : "apply-off" }, d.oldValue || "-"),
+            el("td", { class: d.apply ? "" : "apply-off" }, d.newValue || "-"),
+            el("td", {}, chk),
+          ])
+        })
+
+        const diffTable = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [
+            el("div", { class: "card-title" }, "字段修改"),
+            el("div", { style: "margin-left:auto;display:flex;gap:10px" }, [
+              el(
+                "button",
+                {
+                  class: "btn secondary",
+                  onClick: () => {
+                    ;(ticket.diffs || []).forEach((d) => (d.apply = true))
+                    render()
+                  },
+                },
+                "全选差异"
+              ),
+              el(
+                "button",
+                {
+                  class: "btn secondary",
+                  onClick: () => {
+                    ;(ticket.diffs || []).forEach((d) => (d.apply = false))
+                    render()
+                  },
+                },
+                "全不选"
+              ),
+            ]),
+          ]),
+          el("div", { class: "table-wrap" }, [
+            el("table", { class: "diff-table" }, [
+              el("thead", {}, [
+                el("tr", {}, [el("th", {}, "字段名"), el("th", {}, "平台商品信息"), el("th", {}, "修改商品信息"), el("th", {}, "是否更新")]),
+              ]),
+              el("tbody", {}, diffRows.length ? diffRows : el("tr", {}, [el("td", { colspan: "4" }, el("div", { class: "empty" }, "暂无差异字段"))])),
+            ]),
+          ]),
+        ])
+
+        const img = ticket.imageDiff || { old: [], next: [], apply: false }
+        const imgApply = el("span", {
+          class: `checkbox ${img.apply ? "on" : ""}`,
+          onClick: () => {
+            img.apply = !img.apply
+            render()
+          },
+        })
+
+        const imgBlock = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [el("div", { class: "card-title" }, "图片修改"), el("div", { style: "margin-left:auto;display:flex;align-items:center;gap:10px" }, [el("span", { class: "label", style: "margin:0" }, "是否更新"), imgApply])]),
+          el("div", { class: "card-body" }, [
+            el("div", { class: "grid-2" }, [
+              el("div", {}, [
+                el("div", { class: "group-title" }, "平台商品图片"),
+                img.old.length
+                  ? el(
+                      "div",
+                      { class: "media-grid" },
+                      img.old.map((name) =>
+                        el("div", { class: "media-tile", onClick: () => previewMedia("平台原图预览", img.old) }, name)
+                      )
+                    )
+                  : el("div", { class: "empty" }, "无"),
+              ]),
+              el("div", {}, [
+                el("div", { class: "group-title" }, "修改后商品图片"),
+                img.next.length
+                  ? el(
+                      "div",
+                      { class: "media-grid" },
+                      img.next.map((name) =>
+                        el("div", { class: "media-tile", onClick: () => previewMedia("修改后图片预览", img.next) }, name)
+                      )
+                    )
+                  : el("div", { class: "empty" }, "无"),
+              ]),
+            ]),
+          ]),
+        ])
+
+        const bottom = el("div", { class: "bottom-bar" }, [
+          el("div", { class: "bottom-inner" }, [
+            el("div", { class: "bottom-left" }, [
+              platformTag(ticket.platformId),
+              statusTag(ticket),
+              ticket.platformCode ? tagNode("success", `平台编码：${ticket.platformCode}`) : tagNode("", "未生成平台编码"),
+            ]),
+            el("div", { class: "bottom-right" }, [
+              el(
+                "button",
+                {
+                  class: "btn ghost",
+                  onClick: () => navTo("#/audit"),
+                },
+                "返回"
+              ),
+              el(
+                "button",
+                {
+                  class: "btn danger",
+                  disabled: ticket.status !== "PENDING" && ticket.status !== "CALLBACK_FAILED",
+                  onClick: () => rejectTicket(ticket),
+                },
+                "审核驳回"
+              ),
+              el(
+                "button",
+                {
+                  class: "btn primary",
+                  disabled: ticket.status !== "PENDING" && ticket.status !== "CALLBACK_FAILED",
+                  onClick: () => approveTicket(ticket),
+                },
+                "审核通过"
+              ),
+            ]),
+          ]),
+        ])
+
+        const info = el("div", { class: "card" }, [
+          el("div", { class: "card-header" }, [el("div", { class: "card-title" }, "单据信息")]),
+          el("div", { class: "card-body" }, [
+            el("div", { class: "grid-2" }, [
+              el("div", { class: "kv" }, [el("div", { class: "k" }, "平台商品编码"), el("div", { class: "v mono" }, ticket.sourceGoodsCode)]),
+              el("div", { class: "kv" }, [el("div", { class: "k" }, "平台编码"), el("div", { class: "v mono" }, ticket.platformCode || "-")]),
+              el("div", { class: "kv" }, [el("div", { class: "k" }, "提交人"), el("div", { class: "v" }, ticket.submitter || "-")]),
+              el("div", { class: "kv" }, [el("div", { class: "k" }, "提交时间"), el("div", { class: "v mono" }, ticket.createdAt || "-")]),
+            ]),
+          ]),
+        ])
+
+        root.replaceChildren(el("div", { class: "page" }, [header, el("div", { class: "content-scroll" }, [info, diffTable, imgBlock]), bottom]))
+      }
+
+      const parseRoute = () => {
+        const h = window.location.hash || "#/audit"
+        const parts = h.replace(/^#\//, "").split("/").filter(Boolean)
+        if (!parts.length) return { name: "audit" }
+        if (parts[0] === "audit" && parts.length === 1) return { name: "audit" }
+        if (parts[0] === "audit" && parts[1] === "new" && parts[2]) return { name: "new", id: parts[2] }
+        if (parts[0] === "audit" && parts[1] === "edit" && parts[2]) return { name: "edit", id: parts[2] }
+        if (parts[0] === "shots") return { name: "shots" }
+        return { name: "audit" }
+      }
+
+      const syncNavActive = (routeName) => {
+        document.querySelectorAll(".nav-item").forEach((n) => {
+          const key = n.getAttribute("data-nav")
+          const active = routeName === "shots" ? key === "shots" : key === "audit"
+          n.classList.toggle("active", active)
+        })
+      }
+
+      const render = () => {
+        const r = parseRoute()
+        syncNavActive(r.name)
+        if (r.name === "audit") renderList()
+        else if (r.name === "new") renderNewDetail(r.id)
+        else if (r.name === "edit") renderEditDetail(r.id)
+        else if (r.name === "shots") renderShots()
+        else renderList()
+      }
+
+      document.querySelectorAll(".nav-item").forEach((n) => {
+        n.addEventListener("click", () => {
+          const key = n.getAttribute("data-nav")
+          navTo(key === "shots" ? "#/shots" : "#/audit")
+        })
+      })
+
+      window.addEventListener("hashchange", render)
+      if (!window.location.hash) navTo("#/audit")
+      render()
+      toast(`原型已加载：${now()}`)
+    </script>
+    <script>
+      ;(() => {
+        const show = (text) => {
+          const bar = document.createElement("div")
+          bar.style.position = "fixed"
+          bar.style.left = "50%"
+          bar.style.top = "12px"
+          bar.style.transform = "translateX(-50%)"
+          bar.style.background = "rgba(254, 34, 45, 0.92)"
+          bar.style.color = "#fff"
+          bar.style.padding = "10px 12px"
+          bar.style.borderRadius = "999px"
+          bar.style.fontSize = "14px"
+          bar.style.zIndex = "9999"
+          bar.style.boxShadow = "0 18px 40px rgba(0,0,0,0.25)"
+          bar.textContent = text
+          document.body.appendChild(bar)
+        }
+
+        const analyze = async () => {
+          const res = await fetch(window.location.href, { cache: "no-store" })
+          const html = await res.text()
+          const anchor = "const PLATFORM_LABEL"
+          const pos = html.indexOf(anchor)
+          if (pos < 0) return
+          const s = html.lastIndexOf("<script>", pos)
+          const endTag = "</scr" + "ipt>"
+          const e = html.indexOf(endTag, pos)
+          if (s < 0 || e < 0) return
+          const code = html.slice(s + "<script>".length, e)
+          const findTrailing = () => {
+            const idx = code.search(/,\s*\n\s*\]/)
+            if (idx < 0) return null
+            const before = code.slice(0, idx)
+            const line = before.split("\n").length
+            const ctx = code.split("\n").slice(Math.max(0, line - 3), line + 2)
+            return { line, ctx: ctx.join(" | ") }
+          }
+          const t = findTrailing()
+          if (t) {
+            const msg = `检测到疑似数组尾随逗号：行≈${t.line} | ${t.ctx}`
+            console.error(msg)
+            show(msg)
+          }
+          try {
+            new Function(code)
+          } catch (err) {
+            const detail = String(err.stack || err.message || err)
+            console.error(detail)
+            show(`脚本整体解析失败：${detail}`)
+            return
+          }
+          const lines = code.split("\n")
+          const tryCompile = (n) => {
+            try {
+              new Function(lines.slice(0, n).join("\n"))
+              return null
+            } catch (err) {
+              return err
+            }
+          }
+
+          let lo = 1
+          let hi = lines.length
+          let firstBad = null
+          while (lo <= hi) {
+            const mid = Math.floor((lo + hi) / 2)
+            const err = tryCompile(mid)
+            if (err) {
+              firstBad = mid
+              hi = mid - 1
+            } else {
+              lo = mid + 1
+            }
+          }
+          if (firstBad) {
+            const err = tryCompile(firstBad)
+            const head = Math.max(1, firstBad - 2)
+            const tail = Math.min(lines.length, firstBad + 2)
+            const snippet = lines.slice(head - 1, tail).map((l, i) => `${head + i}: ${l}`).join(" | ")
+            const detail = err ? String(err.stack || err.message || err) : ""
+            const msg = `脚本解析失败，疑似出错行≈${firstBad}：${snippet} | ${detail}`
+            console.error(msg)
+            show(msg)
+          }
+        }
+
+        analyze().catch(() => {})
+      })()
+    </script>
+  </body>
+</html>
