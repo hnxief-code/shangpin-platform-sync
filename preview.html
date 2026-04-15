@@ -136,7 +136,6 @@
         box-shadow: none;
       }
 
-      /* 右侧小箭头效果 */
       .nav-item::after {
         content: "▸";
         position: absolute;
@@ -148,13 +147,11 @@
         color: rgba(255,255,255,0.8);
       }
 
-      /* 隐藏文字与点 */
       .nav-item span.nav-text,
       .nav-dot {
         display: none;
       }
 
-      /* 提示框 */
       .nav-menu-popover {
         display: none;
         position: absolute;
@@ -201,9 +198,9 @@
         color: var(--primary);
       }
       
-      .nav-item:hover::before {
-        display: none; /* 如果有popover，就隐藏黑色小提示 */
-      }
+       .nav-item:hover::before {
+         display: none;
+       }
 
       .main {
         grid-area: main;
@@ -723,7 +720,6 @@
       </div>
 
       <div class="nav">
-        <!-- 第一个图标菜单 -->
         <div class="nav-items-wrapper">
           <div class="nav-item">
             🏠
@@ -786,13 +782,23 @@
     <div class="toast" id="toast"></div>
 
     <script>
-      const PLATFORM_LABEL = { YOU_LI_HUI: "优礼汇", ERP: "客户ERP", OMS: "客户OMS" }
+      const PLATFORM_LABEL = { YOU_LI_HUI: "优礼汇" }
       const STATUS_META = {
         PENDING: { text: "待审核", tone: "warning" },
         REJECTED: { text: "已驳回", tone: "danger" },
         APPROVED_WAIT_CALLBACK: { text: "通过待同步", tone: "primary" },
         DONE: { text: "已完成同步", tone: "success" },
         CALLBACK_FAILED: { text: "同步失败", tone: "danger" }
+      }
+      const STOCK_DEFAULTS = {
+        goodsType: "商品",
+        approvalNumber: "无",
+        registrationCert: "无",
+        isBulkHerb: "否",
+        efficacyCategory: "生活用品",
+        dosageForm: "无",
+        brand: "无",
+        specialCompound: "否"
       }
 
       const state = {
@@ -831,31 +837,37 @@
               virtualSales: "0",
               remark: "图片齐全后可快速上架"
             },
-            media: { images: ["主图1", "主图2", "主图3", "主图4"], video: "商品主视频.mp4", attachments: [{ name: "资质证明.pdf", size: "1.2MB" }, { name: "说明书.docx", size: "820KB" }] }
+            media: {
+              images: ["主图1", "主图2", "主图3", "主图4"],
+              windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"],
+              video: "商品主视频.mp4",
+              attachments: [{ name: "资质证明.pdf", size: "1.2MB" }, { name: "说明书.docx", size: "820KB" }]
+            }
           },
           {
-            id: "T202604130003",
-            platformId: "ERP",
+            id: "T202604120009",
+            platformId: "YOU_LI_HUI",
             type: "NEW",
-            status: "PENDING",
-            callback: "",
-            sourceGoodsCode: "ERP-000889",
-            goodsName: "维生素C泡腾片",
-            barcode: "6923456789012",
-            submitter: "客户ERP-接口推送",
-            createdAt: "2026-04-13 11:18:02",
-            platformCode: "",
+            status: "DONE",
+            callback: "SUCCESS",
+            sourceGoodsCode: "YLH-000312",
+            goodsName: "医用酒精棉片(已审核)",
+            barcode: "6931234567890",
+            submitter: "优礼汇-运营A",
+            createdAt: "2026-04-12 18:05:00",
+            platformCode: "HD-YLH-210888",
             fields: {
-              productName: "维生素C泡腾片",
-              spec: "20片/管",
-              manufacturer: "某某制药有限公司",
-              brand: "健康牌",
-              approvalNumber: "国药准字H20261234",
+              productCode: "000312",
+              productName: "医用酒精棉片(已审核)",
+              category: "消毒/防护",
+              barcode: "6931234567890",
+              spec: "50片/盒",
               unit: "盒",
-              origin: "江苏南京",
-              shelfLifeDays: "730"
+              origin: "湖南长沙",
+              shelfLifeDays: "730",
+              manufacturer: "某某医疗器械有限公司"
             },
-            media: { images: ["主图1", "主图2"], video: "", attachments: [] }
+            media: { images: ["主图1"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
           },
           {
             id: "T202604130002",
@@ -870,13 +882,25 @@
             createdAt: "2026-04-13 09:03:11",
             platformCode: "HD-YLH-210023",
             rejectReason: "",
+            fields: {
+              productCode: "001028",
+              productName: "一次性口罩",
+              category: "防护用品",
+              barcode: "6900000012345",
+              spec: "50只/盒",
+              unit: "包",
+              origin: "河北",
+              shelfLifeDays: "365",
+              manufacturer: "某某医疗用品有限公司"
+            },
             diffs: [
               { key: "goodsName", name: "商品名", oldValue: "一次性口罩", newValue: "一次性医用口罩", apply: true },
               { key: "unit", name: "单位", oldValue: "包", newValue: "盒", apply: true },
               { key: "shelfLifeDays", name: "保质期(天)", oldValue: "365", newValue: "730", apply: true },
               { key: "category", name: "商品分类", oldValue: "防护用品", newValue: "防护/医用", apply: true }
             ],
-            imageDiff: { old: ["原图1"], next: ["新图1"], apply: true }
+            imageDiff: { old: ["原图1"], next: ["新图1"], apply: true },
+            media: { images: ["新图1"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
           },
           {
             id: "T202604140004",
@@ -917,34 +941,64 @@
               { key: "cartonSpec", name: "箱规", oldValue: "1箱=40包", newValue: "1箱=60包", apply: false }
             ],
             imageDiff: { old: ["旧包装主图"], next: ["新包装主图"], apply: true },
-            media: { images: ["新包装主图", "背面图"], video: "", attachments: [{ name: "新版包装说明.pdf", size: "2.1MB" }] }
+            media: { images: ["新包装主图", "背面图"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [{ name: "新版包装说明.pdf", size: "2.1MB" }] }
+          },
+          {
+            id: "T202604110021",
+            platformId: "YOU_LI_HUI",
+            type: "EDIT",
+            status: "DONE",
+            callback: "SUCCESS",
+            sourceGoodsCode: "YLH-001028",
+            goodsName: "一次性口罩(上次已审核)",
+            barcode: "6900000012345",
+            submitter: "优礼汇-运营B",
+            createdAt: "2026-04-11 09:20:00",
+            platformCode: "HD-YLH-210023",
+            rejectReason: "",
+            fields: {
+              productCode: "001028",
+              productName: "一次性口罩",
+              category: "防护用品",
+              barcode: "6900000012345",
+              spec: "50只/盒",
+              unit: "盒",
+              origin: "河北",
+              shelfLifeDays: "365",
+              manufacturer: "某某医疗用品有限公司"
+            },
+            diffs: [
+              { key: "unit", name: "单位", oldValue: "包", newValue: "盒", apply: true }
+            ],
+            imageDiff: { old: ["原图1"], next: ["新图1"], apply: true },
+            media: { images: ["新图1"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
           },
           {
             id: "T202604150005",
             platformId: "YOU_LI_HUI",
             type: "NEW",
-            status: "REJECTED",
+            status: "PENDING",
             callback: "",
             sourceGoodsCode: "YLH-000312",
-            goodsName: "医用酒精棉片(重复推送)",
+            goodsName: "医用酒精棉片(二次提交-覆盖)",
             barcode: "6931234567890",
             submitter: "优礼汇-系统推送",
             createdAt: "2026-04-15 09:12:00",
             platformCode: "",
-            rejectReason: "系统自动驳回：该商品编码(YLH-000312)已存在",
             fields: {
               productCode: "000312",
-              productName: "医用酒精棉片(重复推送)",
+              productName: "医用酒精棉片(二次提交-覆盖)",
               taxCode: "A123456",
               taxName: "消毒用品",
+              category: "消毒/防护",
               barcode: "6931234567890",
-              spec: "50片/盒",
+              spec: "100片/盒",
               unit: "盒",
-              cartonSpec: "1箱=40盒",
+              cartonSpec: "1箱=20盒",
               minBatch: "1",
               manufacturer: "某某医疗器械有限公司"
             },
-            media: { images: [], video: "", attachments: [] }
+            media: { images: ["主图1", "主图2"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
           },
           {
             id: "T202604150006",
@@ -963,17 +1017,66 @@
               productName: "测试8字段冲突商品",
               taxCode: "B123123",
               taxName: "测试",
+              category: "测试分类",
               barcode: "6999999999999",
               spec: "1个",
               unit: "个",
               cartonSpec: "1箱=1个",
               minBatch: "1",
+              origin: "上海",
+              shelfLifeDays: "365",
               manufacturer: "测试企业"
             },
-            media: { images: ["测试图"], video: "", attachments: [] }
+            media: { images: ["测试图"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
           }
         ]
       }
+
+      const normalizeTickets = (list) => {
+        const sorted = [...list].sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
+        const newGroups = new Map()
+        const editGroups = new Map()
+
+        for (const t of sorted) {
+          if (t.type === "NEW") {
+            const key = `${t.platformId}|${t.sourceGoodsCode || (t.fields && t.fields.productCode) || t.goodsName || t.id}`
+            const arr = newGroups.get(key) || []
+            arr.push(t)
+            newGroups.set(key, arr)
+          } else {
+            const key = `${t.platformId}|${t.platformCode || t.sourceGoodsCode || t.goodsName || t.id}`
+            const arr = editGroups.get(key) || []
+            arr.push(t)
+            editGroups.set(key, arr)
+          }
+        }
+
+        const pickNew = (arr) => {
+          const done = arr.find((x) => x.status === "DONE")
+          if (done) return done
+          const awc = arr.find((x) => x.status === "APPROVED_WAIT_CALLBACK")
+          if (awc) return awc
+          return arr[0]
+        }
+
+        const picked = []
+        for (const arr of newGroups.values()) {
+          picked.push(pickNew(arr))
+        }
+
+        const keepEdit = (arr) => {
+          const dones = arr.filter((x) => x.status === "DONE" || x.status === "APPROVED_WAIT_CALLBACK")
+          const others = arr.filter((x) => !(x.status === "DONE" || x.status === "APPROVED_WAIT_CALLBACK"))
+          const latestOther = others.length ? others[0] : null
+          return [...dones, ...(latestOther ? [latestOther] : [])]
+        }
+        for (const arr of editGroups.values()) {
+          picked.push(...keepEdit(arr))
+        }
+
+        return picked.sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
+      }
+      state.tickets = normalizeTickets(state.tickets)
 
       const $ = (sel) => document.querySelector(sel)
       const root = $("#root")
@@ -1023,25 +1126,18 @@
       const calcCounts = () => {
         const all = state.tickets.length
         const ylh = state.tickets.filter((t) => t.platformId === "YOU_LI_HUI").length
-        const erp = state.tickets.filter((t) => t.platformId === "ERP").length
-        const oms = state.tickets.filter((t) => t.platformId === "OMS").length
-        return { ALL: all, YOU_LI_HUI: ylh, ERP: erp, OMS: oms }
+        return { ALL: all, YOU_LI_HUI: ylh }
       }
 
       const applyApprove = (t) => {
-        // 模拟8个字段的唯一性校验环节
         if (t.type === "NEW") {
-           toast("系统正在进行入库前8个核心字段唯一校验...")
+          toast("系统正在进行入库前8个核心字段唯一校验...")
         }
         
         window.setTimeout(() => {
-          // 模拟标库8字段唯一性校验失败的场景
           if (t.goodsName === "测试8字段冲突商品") {
-            t.status = "REJECTED"
-            t.rejectReason = "标库校验失败：库中已存在相同商品(商品类型,通用名,商品规格,生产企业,条形码,是否散装,批准文号,注册证号 完全一致)"
-            render()
-            toast("入库失败！触发标库8字段唯一性限制，状态已强制置为驳回")
-            return
+            toast("标库校验命中：已存在相同8字段记录，本次按更新标库资料执行")
+            t.platformCode = t.platformCode || "HD-YLH-000888"
           }
 
           if (!t.platformCode) {
@@ -1092,25 +1188,13 @@
       const reject = (id) => {
         const t = getTicket(id)
         if (!t) return
-        
-        let readonlyMsg = ""
-        let isReadonly = false
-        if (t.status === "REJECTED" && t.rejectReason && t.rejectReason.includes("系统自动驳回")) {
-            readonlyMsg = `<div style="color:var(--danger);background:rgba(254,34,45,0.1);padding:10px;border-radius:4px;margin-bottom:12px">${t.rejectReason}</div>`
-            isReadonly = true
-        } else if (t.status === "REJECTED" && t.rejectReason && t.rejectReason.includes("标库校验失败")) {
-            readonlyMsg = `<div style="color:var(--danger);background:rgba(254,34,45,0.1);padding:10px;border-radius:4px;margin-bottom:12px">${t.rejectReason}</div>`
-            isReadonly = true
-        }
 
         openModal(
           "审核驳回",
-          `${readonlyMsg}
-           ${!isReadonly ? `<div style="color:var(--muted);line-height:1.6">驳回后将回传原因至优礼汇侧，并将单据状态置为“已驳回”。</div>
+          `<div style="color:var(--muted);line-height:1.6">驳回后将回传原因至优礼汇侧，并将单据状态置为“已驳回”。</div>
            <div style="height:10px"></div>
-           <textarea class="text-area" id="rejectReason" placeholder="请输入驳回原因（必填）"></textarea>` : ''}`,
-          `<button class="btn secondary" data-act="close">${isReadonly ? '关闭' : '取消'}</button>
-           ${!isReadonly ? `<button class="btn danger" data-act="confirm-reject" data-id="${t.id}">确认驳回</button>` : ''}`
+           <textarea class="text-area" id="rejectReason" placeholder="请输入驳回原因（必填）"></textarea>`,
+          `<button class="btn secondary" data-act="close">取消</button><button class="btn danger" data-act="confirm-reject" data-id="${t.id}">确认驳回</button>`
         )
         window.setTimeout(() => {
           const ta = $("#rejectReason")
@@ -1171,10 +1255,9 @@
           
         const row = (t) => {
           const isPending = t.status === "PENDING"
-          const auditLabel = t.status === "PENDING" ? "待审核" : "已审核"
           const fields = t.fields || {}
           const bizType = t.type === "NEW" ? "新品申请" : "资料变更"
-          const source = PLATFORM_LABEL[t.platformId] || t.platformId
+          const source = PLATFORM_LABEL[t.platformId] || "-"
           
           return `
             <tr>
@@ -1207,7 +1290,7 @@
               <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:16px 24px;margin-bottom:16px">
                 <div style="display:flex;align-items:center;gap:12px"><div style="color:var(--muted);width:80px;text-align:right">平台商品编码</div><input class="control" style="flex:1" placeholder="请输入" /></div>
                 <div style="display:flex;align-items:center;gap:12px"><div style="color:var(--muted);width:60px;text-align:right">新增标识</div><select class="control" style="flex:1"><option>全部</option><option>新品申请</option><option>资料变更</option></select></div>
-                <div style="display:flex;align-items:center;gap:12px"><div style="color:var(--muted);width:60px;text-align:right">来源平台</div><select class="control" style="flex:1"><option>全部</option><option>优礼汇</option><option>客户ERP</option></select></div>
+                <div style="display:flex;align-items:center;gap:12px"><div style="color:var(--muted);width:60px;text-align:right">来源平台</div><select class="control" style="flex:1"><option>全部</option><option>优礼汇</option><option>-</option></select></div>
                 <div style="display:flex;align-items:center;gap:12px"><div style="color:var(--muted);width:60px;text-align:right">通用名</div><input class="control" style="flex:1" placeholder="请输入" /></div>
                 <div style="display:flex;align-items:center;gap:12px"><div style="color:var(--muted);width:60px;text-align:right">商品规格</div><input class="control" style="flex:1" placeholder="请输入" /></div>
                 
@@ -1285,20 +1368,27 @@
           return
         }
         const f = t.fields || {}
-        const images = (t.media && t.media.images) || []
+        const imagesAll = (t.media && t.media.images) || []
+        const images = imagesAll.length ? [imagesAll[0]] : []
+        const windowImages = (t.media && t.media.windowImages) || []
         const required = (s) => `<span style="color:var(--danger);margin-right:4px">*</span>${s}`
         const isPending = t.status === "PENDING"
         const isYLH = t.platformId === "YOU_LI_HUI"
         const value = (v) => (v === null || v === undefined ? "" : String(v))
         
         if (isYLH) {
+          const readonly = !isPending
+          const dis = readonly ? "disabled" : ""
+          const roStyle = readonly ? 'background:#f5f5f5' : ''
+          const catValue = value(f.category || "")
+
           root.innerHTML = `
             <div class="page" style="background:#f0f2f5;padding:0">
               <div style="background:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)">
                 <div style="font-size:18px;font-weight:600">平台商品资料新增&审核详情</div>
                 <div style="display:flex;gap:12px">
                   ${t.status === 'CALLBACK_FAILED' ? `<button class="btn danger" data-act="retry" data-id="${t.id}">重试同步</button>` : ''}
-                  <button class="btn secondary" style="color:var(--muted);cursor:help" title="【防重机制】来源平台+商品编码+新增标识 三方维度唯一校验">系统已过三方维度校验</button>
+                  <button class="btn secondary" style="color:var(--muted);cursor:help" title="系统已进行唯一性校验并按业务规则取最新记录">系统已完成校验</button>
                   <button class="btn primary" style="background:#40a9ff;border-color:#40a9ff">数据比对</button>
                   <button class="btn primary" style="background:#40a9ff;border-color:#40a9ff">图片识别</button>
                 </div>
@@ -1308,30 +1398,40 @@
                 <div class="content-scroll" style="flex:1;padding:16px 24px">
                   <div style="background:#fff;padding:16px 24px;border-radius:4px;margin-bottom:16px;display:flex;gap:24px;align-items:center">
                     <div style="display:flex;align-items:center;gap:12px;flex:1">
-                      <span style="color:var(--text)">是否数据比对</span>
-                      <select class="control" style="flex:1;background:#f5f5f5" disabled><option>是</option></select>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:12px;flex:1">
-                      <span style="color:var(--text)">对码的平台商品编码</span>
-                      <input class="control" style="flex:1;background:#f5f5f5" value="${value(t.platformCode)}" disabled placeholder="由系统自动生成" />
+                      <span style="color:var(--text)">平台商品编码</span>
+                      <input class="control" style="flex:1;${roStyle}" value="${value(t.platformCode)}" disabled placeholder="审核通过后生成/回传" />
                     </div>
                     <div style="display:flex;align-items:center;gap:12px;flex:2">
                       <span style="color:var(--text)">平台审核意见</span>
-                      <input class="control" style="flex:1" placeholder="" id="auditRemark" />
+                      <input class="control" style="flex:1;${roStyle}" ${dis} placeholder="" id="auditRemark" />
+                    </div>
+                  </div>
+
+                  <div style="background:#fff;border-radius:4px;margin-bottom:16px" id="sec-stock">
+                    <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">标库必填字段(默认赋值，不可修改) <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
+                    <div style="padding:24px">
+                      <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品类型")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.goodsType}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("批准文号")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.approvalNumber}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("注册证书")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.registrationCert}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("是否散装中药")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.isBulkHerb}" disabled /></div>
+
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品功效大类")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.efficacyCategory}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("剂型")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.dosageForm}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商标")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.brand}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("是否含特殊药品复方制剂")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.specialCompound}" disabled /></div>
+                      </div>
                     </div>
                   </div>
 
                   <div style="background:#fff;border-radius:4px;margin-bottom:16px" id="sec-category">
                     <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">类别信息 <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
                     <div style="padding:24px">
-                      <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:12px;font-size:13px;color:var(--muted)">
-                        <span>^ 展开明细</span> <span>行颜色设置</span> <span>字段设置</span>
-                      </div>
                       <table style="width:100%;border-collapse:collapse;border:1px solid #f0f0f0;text-align:left;font-size:13px">
                         <thead>
                           <tr style="background:#f9f9f9">
                             <th style="padding:10px 12px;border-bottom:1px solid #f0f0f0;width:60px;text-align:center">序号</th>
-                            <th style="padding:10px 12px;border-bottom:1px solid #f0f0f0;width:350px">选择类别</th>
+                            <th style="padding:10px 12px;border-bottom:1px solid #f0f0f0;width:420px">选择类别</th>
                             <th style="padding:10px 12px;border-bottom:1px solid #f0f0f0">是否必选</th>
                             <th style="padding:10px 12px;border-bottom:1px solid #f0f0f0">定义层级</th>
                             <th style="padding:10px 12px;border-bottom:1px solid #f0f0f0">维护层级</th>
@@ -1342,7 +1442,7 @@
                             <td style="padding:10px 12px;text-align:center;border-bottom:1px solid #f0f0f0">1</td>
                             <td style="padding:10px 12px;border-bottom:1px solid #f0f0f0">
                                <div style="position:relative">
-                                 <input class="control" style="width:100%;height:28px;background:#fff" value="消毒用品 / 消毒用品 / 其它消毒用品 / 其它消毒用品" />
+                                 <input class="control" style="width:100%;height:28px;${readonly ? "background:#f5f5f5" : "background:#fff"}" value="${catValue}" ${dis} placeholder="请选择/录入商品类别" />
                                  <span style="position:absolute;right:8px;top:6px;color:var(--muted)">v</span>
                                </div>
                             </td>
@@ -1360,44 +1460,20 @@
                     <div style="padding:24px">
                       <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品编码")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.productCode)}" disabled /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品名称")}</div><input class="control" style="flex:1" value="${value(f.productName || t.goodsName)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("税务编码")}</div><input class="control" style="flex:1" value="${value(f.taxCode)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("税务品名")}</div><input class="control" style="flex:1" value="${value(f.taxName)}" /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品名称")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.productName || t.goodsName)}" /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品条码")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.barcode || t.barcode)}" /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("规格")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.spec)}" /></div>
 
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("条形码")}</div><input class="control" style="flex:1" value="${value(f.barcode || t.barcode)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("规格")}</div><input class="control" style="flex:1" value="${value(f.spec)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("单位")}</div><input class="control" style="flex:1" value="${value(f.unit)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("箱规")}</div><input class="control" style="flex:1" value="${value(f.cartonSpec)}" /></div>
-                        
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("起批数")}</div><input class="control" style="flex:1" value="${value(f.minBatch)}" /></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style="background:#fff;border-radius:4px;margin-bottom:16px" id="sec-detail">
-                    <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">详细信息 <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
-                    <div style="padding:24px">
-                      <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("生产企业")}</div><input class="control" style="flex:1" value="${value(f.manufacturer)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">服务商</div><input class="control" style="flex:1" value="${value(f.serviceProvider)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("产地")}</div><input class="control" style="flex:1" value="${value(f.origin)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">发票类型</div><input class="control" style="flex:1" value="${value(f.invoiceType)}" /></div>
-
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">税率</div><input class="control" style="flex:1" value="${value(f.taxRate)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("保质期(天)")}</div><input class="control" style="flex:1" value="${value(f.shelfLifeDays)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">标签</div><input class="control" style="flex:1" value="${value(f.tags)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">虚拟销量</div><input class="control" style="flex:1" value="${value(f.virtualSales)}" /></div>
-
-                        <div style="grid-column:1/5;display:flex;align-items:flex-start;gap:8px">
-                          <div style="width:100px;text-align:right;padding-top:8px">备注</div>
-                          <textarea class="text-area" style="flex:1;min-height:90px" id="ylhRemark">${value(f.remark)}</textarea>
-                        </div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("单位")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.unit)}" /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("产地")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.origin)}" /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("保质期(天)")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.shelfLifeDays)}" /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("生产企业")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.manufacturer)}" /></div>
                       </div>
                     </div>
                   </div>
 
                   <div style="background:#fff;border-radius:4px;margin-bottom:16px" id="sec-media">
-                    <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">多媒体与附件 <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
+                    <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">图片信息 <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
                     <div style="padding:24px">
                       <div style="font-weight:700;margin-bottom:10px">${required("商品主图")}</div>
                       <div class="media-grid" style="grid-template-columns:repeat(6, 1fr)">
@@ -1406,32 +1482,31 @@
                       ${images.length ? "" : '<div style="color:var(--muted);margin-top:8px">未上传</div>'}
 
                       <div style="height:16px"></div>
-                      <div style="font-weight:700;margin-bottom:10px">商品主视频</div>
-                      <div class="kv"><div class="k">文件</div><div class="v">${value(t.media && t.media.video)}</div></div>
-
-                      <div style="height:16px"></div>
-                      <div style="font-weight:700;margin-bottom:10px">商品资质</div>
-                      ${(t.media && t.media.attachments ? t.media.attachments : []).map((a) => '<div class="kv" style="grid-template-columns:1fr auto"><div class="v">' + a.name + ' <span style="color:var(--subtle);font-weight:500">(' + a.size + ')</span></div><div class="link" data-act="download">下载</div></div>').join("")}
-                      ${(t.media && t.media.attachments && t.media.attachments.length) ? "" : '<div style="color:var(--muted)">无</div>'}
+                      <div style="font-weight:700;margin-bottom:10px">${required("商品橱窗图")}</div>
+                      <div class="media-grid" style="grid-template-columns:repeat(5, 1fr)">
+                        ${(windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5).map((n, i) => '<div class="media-tile" data-act="preview-media" data-title="商品橱窗图预览" data-items="' + encodeURIComponent(JSON.stringify((windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5))) + '" data-idx="' + i + '">' + n + "</div>").join("")}
+                      </div>
                     </div>
                   </div>
+                </div>
+
                 <div style="width:120px;background:#fff;border-left:1px solid var(--border);padding:24px 0">
-                <div style="display:flex;flex-direction:column;gap:16px;text-align:center;font-size:13px">
-                  <div style="color:var(--primary);font-weight:500;border-right:2px solid var(--primary);cursor:pointer">基础信息</div>
-                  <div style="color:var(--muted);cursor:pointer">类别信息</div>
-                  <div style="color:var(--muted);cursor:pointer">详细信息</div>
-                  <div style="color:var(--muted);cursor:pointer">多媒体</div>
+                  <div style="display:flex;flex-direction:column;gap:16px;text-align:center;font-size:13px">
+                    <div style="color:var(--primary);font-weight:500;border-right:2px solid var(--primary);cursor:pointer">标库必填</div>
+                    <div style="color:var(--muted);cursor:pointer">类别信息</div>
+                    <div style="color:var(--muted);cursor:pointer">基础信息</div>
+                    <div style="color:var(--muted);cursor:pointer">图片信息</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div style="position:fixed;bottom:0;left:var(--sidebar-w);right:0;height:50px;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:flex-end;align-items:center;padding:0 24px;gap:12px;box-shadow:0 -2px 8px rgba(0,0,0,0.05)">
-              ${t.status === 'REJECTED' && t.rejectReason ? `<div style="margin-right:auto;color:var(--danger);font-size:14px;display:flex;align-items:center;gap:6px"><span>驳回原因：</span>${t.rejectReason}</div>` : ''}
-              <button class="btn secondary" data-act="back">取消</button>
-              <button class="btn danger" data-act="reject" data-id="${t.id}" ${!isPending && t.status !== 'REJECTED' ? "disabled" : ""}>驳回</button>
-              <button class="btn primary" data-act="approve" data-id="${t.id}" ${!isPending ? "disabled" : ""}>审核通过 (保存)</button>
+              <div style="position:fixed;bottom:0;left:var(--sidebar-w);right:0;height:50px;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:flex-end;align-items:center;padding:0 24px;gap:12px;box-shadow:0 -2px 8px rgba(0,0,0,0.05)">
+                ${t.status === 'REJECTED' && t.rejectReason ? `<div style="margin-right:auto;color:var(--danger);font-size:14px;display:flex;align-items:center;gap:6px"><span>驳回原因：</span>${t.rejectReason}</div>` : ''}
+                <button class="btn secondary" data-act="back">取消</button>
+                <button class="btn danger" data-act="reject" data-id="${t.id}" ${!isPending && t.status !== 'REJECTED' ? "disabled" : ""}>驳回</button>
+                <button class="btn primary" data-act="approve" data-id="${t.id}" ${!isPending ? "disabled" : ""}>审核通过 (保存)</button>
+              </div>
             </div>
-          </div>
           `
           return
         }
@@ -1563,7 +1638,9 @@
         const isPending = t.status === "PENDING"
         const f = t.fields || {}
         const img = t.imageDiff || { old: [], next: [], apply: false }
-        const images = (t.media && t.media.images) || []
+        const imagesAll = (t.media && t.media.images) || []
+        const images = imagesAll.length ? [imagesAll[0]] : []
+        const windowImages = (t.media && t.media.windowImages) || []
         const value = (v) => (v === null || v === undefined ? "" : String(v))
         const required = (s) => `<span style="color:var(--danger);margin-right:4px">*</span>${s}`
 
@@ -1646,6 +1723,23 @@
                   </div>
                 </div>
 
+                <div style="background:#fff;border-radius:4px;margin-bottom:16px" id="sec-stock">
+                  <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">标库必填字段(默认赋值，不可修改) <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
+                  <div style="padding:24px">
+                    <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
+                      <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品类型")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.goodsType}" disabled /></div>
+                      <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("批准文号")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.approvalNumber}" disabled /></div>
+                      <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("注册证书")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.registrationCert}" disabled /></div>
+                      <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("是否散装中药")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.isBulkHerb}" disabled /></div>
+
+                      <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品功效大类")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.efficacyCategory}" disabled /></div>
+                      <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("剂型")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.dosageForm}" disabled /></div>
+                      <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商标")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.brand}" disabled /></div>
+                      <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("是否含特殊药品复方制剂")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${STOCK_DEFAULTS.specialCompound}" disabled /></div>
+                    </div>
+                  </div>
+                </div>
+
                 <div style="margin-top: 24px;">
                   <div style="background:#fff;border-radius:4px;margin-bottom:16px" id="sec-category">
                     <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">类别信息 <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
@@ -1687,37 +1781,13 @@
                       <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品编码")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.productCode)}" disabled /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品名称")}</div><input class="control" style="flex:1" value="${value(f.productName || t.goodsName)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("税务编码")}</div><input class="control" style="flex:1" value="${value(f.taxCode)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("税务品名")}</div><input class="control" style="flex:1" value="${value(f.taxName)}" /></div>
-
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("条形码")}</div><input class="control" style="flex:1" value="${value(f.barcode || t.barcode)}" /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("规格")}</div><input class="control" style="flex:1" value="${value(f.spec)}" /></div>
+
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("单位")}</div><input class="control" style="flex:1" value="${value(f.unit)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("箱规")}</div><input class="control" style="flex:1" value="${value(f.cartonSpec)}" /></div>
-                        
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("起批数")}</div><input class="control" style="flex:1" value="${value(f.minBatch)}" /></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style="background:#fff;border-radius:4px;margin-bottom:16px" id="sec-detail">
-                    <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">详细信息 <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
-                    <div style="padding:24px">
-                      <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("生产企业")}</div><input class="control" style="flex:1" value="${value(f.manufacturer)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">服务商</div><input class="control" style="flex:1" value="${value(f.serviceProvider)}" /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("产地")}</div><input class="control" style="flex:1" value="${value(f.origin)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">发票类型</div><input class="control" style="flex:1" value="${value(f.invoiceType)}" /></div>
-
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">税率</div><input class="control" style="flex:1" value="${value(f.taxRate)}" /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("保质期(天)")}</div><input class="control" style="flex:1" value="${value(f.shelfLifeDays)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">标签</div><input class="control" style="flex:1" value="${value(f.tags)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">虚拟销量</div><input class="control" style="flex:1" value="${value(f.virtualSales)}" /></div>
-
-                        <div style="grid-column:1/5;display:flex;align-items:flex-start;gap:8px">
-                          <div style="width:100px;text-align:right;padding-top:8px">备注</div>
-                          <textarea class="text-area" style="flex:1;min-height:90px" id="ylhRemark">${value(f.remark)}</textarea>
-                        </div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("生产企业")}</div><input class="control" style="flex:1" value="${value(f.manufacturer)}" /></div>
                       </div>
                     </div>
                   </div>
@@ -1730,6 +1800,12 @@
                         ${images.map((n, i) => '<div class="media-tile" data-act="preview-media" data-title="商品主图预览" data-items="' + encodeURIComponent(JSON.stringify(images)) + '" data-idx="' + i + '">' + n + "</div>").join("")}
                       </div>
                       ${images.length ? "" : '<div style="color:var(--muted);margin-top:8px">未上传</div>'}
+
+                      <div style="height:16px"></div>
+                      <div style="font-weight:700;margin-bottom:10px">${required("商品橱窗图")}</div>
+                      <div class="media-grid" style="grid-template-columns:repeat(5, 1fr)">
+                        ${(windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5).map((n, i) => '<div class="media-tile" data-act="preview-media" data-title="商品橱窗图预览" data-items="' + encodeURIComponent(JSON.stringify((windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5))) + '" data-idx="' + i + '">' + n + "</div>").join("")}
+                      </div>
 
                       <div style="height:16px"></div>
                       <div style="font-weight:700;margin-bottom:10px">商品主视频</div>
