@@ -785,10 +785,8 @@
       const PLATFORM_LABEL = { YOU_LI_HUI: "优礼汇" }
       const STATUS_META = {
         PENDING: { text: "待审核", tone: "warning" },
-        REJECTED: { text: "已驳回", tone: "danger" },
-        APPROVED_WAIT_CALLBACK: { text: "通过待同步", tone: "primary" },
-        DONE: { text: "已完成同步", tone: "success" },
-        CALLBACK_FAILED: { text: "同步失败", tone: "danger" }
+        REJECTED: { text: "审核不通过", tone: "danger" },
+        DONE: { text: "审核成功", tone: "success" }
       }
       const STOCK_DEFAULTS = {
         goodsType: "商品",
@@ -809,7 +807,6 @@
             platformId: "YOU_LI_HUI",
             type: "NEW",
             status: "PENDING",
-            callback: "",
             sourceGoodsCode: "YLH-000312",
             goodsName: "医用酒精棉片",
             barcode: "6931234567890",
@@ -849,7 +846,6 @@
             platformId: "YOU_LI_HUI",
             type: "NEW",
             status: "DONE",
-            callback: "SUCCESS",
             sourceGoodsCode: "YLH-000312",
             goodsName: "医用酒精棉片(已审核)",
             barcode: "6931234567890",
@@ -873,8 +869,7 @@
             id: "T202604130002",
             platformId: "YOU_LI_HUI",
             type: "EDIT",
-            status: "CALLBACK_FAILED",
-            callback: "FAIL",
+            status: "REJECTED",
             sourceGoodsCode: "YLH-001028",
             goodsName: "一次性口罩",
             barcode: "6900000012345",
@@ -907,7 +902,6 @@
             platformId: "YOU_LI_HUI",
             type: "EDIT",
             status: "PENDING",
-            callback: "",
             sourceGoodsCode: "YLH-002399",
             goodsName: "板蓝根颗粒",
             barcode: "6921111122222",
@@ -948,7 +942,6 @@
             platformId: "YOU_LI_HUI",
             type: "EDIT",
             status: "DONE",
-            callback: "SUCCESS",
             sourceGoodsCode: "YLH-001028",
             goodsName: "一次性口罩(上次已审核)",
             barcode: "6900000012345",
@@ -978,7 +971,6 @@
             platformId: "YOU_LI_HUI",
             type: "NEW",
             status: "PENDING",
-            callback: "",
             sourceGoodsCode: "YLH-000312",
             goodsName: "医用酒精棉片(二次提交-覆盖)",
             barcode: "6931234567890",
@@ -1005,7 +997,6 @@
             platformId: "YOU_LI_HUI",
             type: "NEW",
             status: "PENDING",
-            callback: "",
             sourceGoodsCode: "YLH-009999",
             goodsName: "测试8字段冲突商品",
             barcode: "6999999999999",
@@ -1054,8 +1045,6 @@
         const pickNew = (arr) => {
           const done = arr.find((x) => x.status === "DONE")
           if (done) return done
-          const awc = arr.find((x) => x.status === "APPROVED_WAIT_CALLBACK")
-          if (awc) return awc
           return arr[0]
         }
 
@@ -1065,8 +1054,8 @@
         }
 
         const keepEdit = (arr) => {
-          const dones = arr.filter((x) => x.status === "DONE" || x.status === "APPROVED_WAIT_CALLBACK")
-          const others = arr.filter((x) => !(x.status === "DONE" || x.status === "APPROVED_WAIT_CALLBACK"))
+          const dones = arr.filter((x) => x.status === "DONE")
+          const others = arr.filter((x) => x.status !== "DONE")
           const latestOther = others.length ? others[0] : null
           return [...dones, ...(latestOther ? [latestOther] : [])]
         }
@@ -1144,24 +1133,9 @@
             const seg = t.platformId === "YOU_LI_HUI" ? "YLH" : t.platformId
             t.platformCode = `HD-${seg}-${Math.floor(100000 + Math.random() * 900000)}`
           }
-          t.status = "APPROVED_WAIT_CALLBACK"
-          t.callback = ""
+          t.status = "DONE"
           render()
-          toast("审核及入库校验通过，正在同步优礼汇平台…")
-          
-          window.setTimeout(() => {
-            const ok = !t.id.endsWith("2") || t.callback === "RETRY"
-            if (ok) {
-              t.status = "DONE"
-              t.callback = "SUCCESS"
-              toast("同步成功，已完成数据流转")
-            } else {
-              t.status = "CALLBACK_FAILED"
-              t.callback = "FAIL"
-              toast("同步失败，可重试")
-            }
-            render()
-          }, 900)
+          toast("审核成功，已完成数据流转")
         }, 800)
       }
 
@@ -1205,7 +1179,6 @@
       const retryCallback = (id) => {
         const t = getTicket(id)
         if (!t) return
-        t.callback = "RETRY"
         applyApprove(t)
       }
 
@@ -1230,7 +1203,7 @@
             <div class="card">
               <div class="card-header"><div class="card-title">按截图生成范围</div></div>
               <div class="card-body" style="color:var(--muted);line-height:1.8">
-                <div>1）优礼汇新增商品信息：基础信息、详细信息、主图/视频/资质（不含价格字段）</div>
+                <div>1）优礼汇新增商品信息：基础信息、标库必填、类别信息、主图/橱窗图（不含价格字段）</div>
                 <div>2）运营平台新增审核：按来源平台区分审核，审核通过生成平台编码回传优礼汇“平台编码”</div>
                 <div>3）运营平台修改审核：字段差异 + 图片差异 + 是否更新勾选</div>
               </div>
@@ -1387,7 +1360,6 @@
               <div style="background:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)">
                 <div style="font-size:18px;font-weight:600">平台商品资料新增&审核详情</div>
                 <div style="display:flex;gap:12px">
-                  ${t.status === 'CALLBACK_FAILED' ? `<button class="btn danger" data-act="retry" data-id="${t.id}">重试同步</button>` : ''}
                   <button class="btn secondary" style="color:var(--muted);cursor:help" title="系统已进行唯一性校验并按业务规则取最新记录">系统已完成校验</button>
                   <button class="btn primary" style="background:#40a9ff;border-color:#40a9ff">数据比对</button>
                   <button class="btn primary" style="background:#40a9ff;border-color:#40a9ff">图片识别</button>
@@ -1400,10 +1372,6 @@
                     <div style="display:flex;align-items:center;gap:12px;flex:1">
                       <span style="color:var(--text)">平台商品编码</span>
                       <input class="control" style="flex:1;${roStyle}" value="${value(t.platformCode)}" disabled placeholder="审核通过后生成/回传" />
-                    </div>
-                    <div style="display:flex;align-items:center;gap:12px;flex:2">
-                      <span style="color:var(--text)">平台审核意见</span>
-                      <input class="control" style="flex:1;${roStyle}" ${dis} placeholder="" id="auditRemark" />
                     </div>
                   </div>
 
@@ -1516,7 +1484,6 @@
             <div style="background:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)">
               <div style="font-size:18px;font-weight:600">编辑商品数据填报</div>
               <div style="display:flex;gap:12px">
-                ${t.status === 'CALLBACK_FAILED' ? `<button class="btn danger" data-act="retry" data-id="${t.id}">重试同步</button>` : ''}
                 <button class="btn primary" style="background:#40a9ff;border-color:#40a9ff">数据比对</button>
                 <button class="btn primary" style="background:#40a9ff;border-color:#40a9ff">图片识别</button>
               </div>
@@ -1532,10 +1499,6 @@
                   <div style="display:flex;align-items:center;gap:12px;flex:1">
                     <span style="color:var(--text)">对码的平台商品编码</span>
                     <input class="control" style="flex:1;background:#f5f5f5" value="${t.platformCode || ""}" disabled placeholder="由系统自动生成" />
-                  </div>
-                  <div style="display:flex;align-items:center;gap:12px;flex:2">
-                    <span style="color:var(--text)">平台审核意见</span>
-                    <input class="control" style="flex:1" placeholder="" id="auditRemark" />
                   </div>
                 </div>
 
@@ -1651,7 +1614,6 @@
             <div style="background:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)">
               <div style="font-size:18px;font-weight:600">平台商品资料修改审核详情</div>
               <div style="display:flex;gap:12px">
-                ${t.status === 'CALLBACK_FAILED' ? `<button class="btn danger" data-act="retry" data-id="${t.id}">重试同步</button>` : ''}
                 <button class="btn secondary" style="color:var(--muted);cursor:help" title="【防重机制】来源平台+商品编码+变更标识 三方维度唯一校验">系统已过三方维度校验</button>
               </div>
             </div>
@@ -1662,10 +1624,6 @@
                   <div style="display:flex;align-items:center;gap:12px;flex:1">
                     <span style="color:var(--text)">平台商品编码</span>
                     <input class="control" style="flex:1;background:#f5f5f5" value="${t.platformCode || ""}" disabled />
-                  </div>
-                  <div style="display:flex;align-items:center;gap:12px;flex:2">
-                    <span style="color:var(--text)">平台审核意见</span>
-                    <input class="control" style="flex:1" placeholder="请填写审核意见" id="auditRemark" />
                   </div>
                 </div>
 
@@ -1806,15 +1764,6 @@
                       <div class="media-grid" style="grid-template-columns:repeat(5, 1fr)">
                         ${(windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5).map((n, i) => '<div class="media-tile" data-act="preview-media" data-title="商品橱窗图预览" data-items="' + encodeURIComponent(JSON.stringify((windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5))) + '" data-idx="' + i + '">' + n + "</div>").join("")}
                       </div>
-
-                      <div style="height:16px"></div>
-                      <div style="font-weight:700;margin-bottom:10px">商品主视频</div>
-                      <div class="kv"><div class="k">文件</div><div class="v">${value(t.media && t.media.video)}</div></div>
-
-                      <div style="height:16px"></div>
-                      <div style="font-weight:700;margin-bottom:10px">商品资质</div>
-                      ${(t.media && t.media.attachments ? t.media.attachments : []).map((a) => '<div class="kv" style="grid-template-columns:1fr auto"><div class="v">' + a.name + ' <span style="color:var(--subtle);font-weight:500">(' + a.size + ')</span></div><div class="link" data-act="download">下载</div></div>').join("")}
-                      ${(t.media && t.media.attachments && t.media.attachments.length) ? "" : '<div style="color:var(--muted)">无</div>'}
                     </div>
                   </div>
                 </div>
