@@ -1,0 +1,6 @@
+stateDiagram-v2
+    [*] --> 待审核(PENDING) : 优礼汇提交资料变更
+    待审核(PENDING) --> 审核不通过(REJECTED) : 运营点击[驳回]
+    待审核(PENDING) --> 审核成功(DONE) : 运营点击[通过]且标库更新成功
+    审核成功(DONE) --> [*]
+    审核不通过(REJECTED) --> [*]

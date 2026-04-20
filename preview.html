@@ -892,9 +892,11 @@
               { key: "goodsName", name: "商品名", oldValue: "一次性口罩", newValue: "一次性医用口罩", apply: true },
               { key: "unit", name: "单位", oldValue: "包", newValue: "盒", apply: true },
               { key: "shelfLifeDays", name: "保质期(天)", oldValue: "365", newValue: "730", apply: true },
-              { key: "category", name: "商品分类", oldValue: "防护用品", newValue: "防护/医用", apply: true }
+              { key: "category", name: "商品分类", oldValue: "防护用品", newValue: "防护/医用", apply: true },
+              { key: "cartonSpec", name: "箱规", oldValue: "1箱=40包", newValue: "1箱=60包", apply: false }
             ],
             imageDiff: { old: ["原图1"], next: ["新图1"], apply: true },
+            windowImageDiff: { old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"], next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"], apply: true },
             media: { images: ["新图1"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
           },
           {
@@ -935,6 +937,7 @@
               { key: "cartonSpec", name: "箱规", oldValue: "1箱=40包", newValue: "1箱=60包", apply: false }
             ],
             imageDiff: { old: ["旧包装主图"], next: ["新包装主图"], apply: true },
+            windowImageDiff: { old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"], next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"], apply: false },
             media: { images: ["新包装主图", "背面图"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [{ name: "新版包装说明.pdf", size: "2.1MB" }] }
           },
           {
@@ -964,6 +967,7 @@
               { key: "unit", name: "单位", oldValue: "包", newValue: "盒", apply: true }
             ],
             imageDiff: { old: ["原图1"], next: ["新图1"], apply: true },
+            windowImageDiff: { old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"], next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"], apply: true },
             media: { images: ["新图1"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
           },
           {
@@ -1601,6 +1605,7 @@
         const isPending = t.status === "PENDING"
         const f = t.fields || {}
         const img = t.imageDiff || { old: [], next: [], apply: false }
+        const winImg = t.windowImageDiff || { old: [], next: [], apply: false }
         const imagesAll = (t.media && t.media.images) || []
         const images = imagesAll.length ? [imagesAll[0]] : []
         const windowImages = (t.media && t.media.windowImages) || []
@@ -1628,7 +1633,7 @@
                 </div>
 
                 <div style="background:#fff;border-radius:4px;margin-bottom:16px">
-                  <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0">资料变更比对 (仅包含优礼汇同步的10项核心字段)</div>
+                  <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0">资料变更比对 (仅包含：商品主图、橱窗图、商品编码、商品名称、商品条码、规格、单位、产地、保质期、生产企业)</div>
                   <div style="padding:24px">
                     <table style="width:100%;border-collapse:collapse;border:1px solid var(--border);text-align:left;font-size:14px">
                       <thead>
@@ -1640,7 +1645,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                        ${(t.diffs || []).map((d, i) => `
+                        ${(t.diffs || []).map((d, i) => {
+                          const allowKeys = ["productCode", "goodsName", "productName", "barcode", "spec", "unit", "origin", "shelfLifeDays", "manufacturer"]
+                          if (!allowKeys.includes(d.key)) return ""
+                          return `
                           <tr>
                             <td style="padding:12px;border-bottom:1px solid var(--border);text-align:center">
                               <input type="checkbox" data-act="toggle-diff" data-id="${t.id}" data-idx="${i}" ${d.apply ? "checked" : ""} ${!isPending ? "disabled" : ""} />
@@ -1649,7 +1657,8 @@
                             <td style="padding:12px;border-bottom:1px solid var(--border);color:var(--muted)">${d.oldValue || "-"}</td>
                             <td style="padding:12px;border-bottom:1px solid var(--border);color:var(--primary);font-weight:600">${d.newValue || "-"}</td>
                           </tr>
-                        `).join("")}
+                        `
+                        }).join("") || `<tr><td colspan="4" style="padding:14px;color:var(--muted);text-align:center">无</td></tr>`}
                       </tbody>
                     </table>
                     
@@ -1674,6 +1683,18 @@
                           </td>
                           <td style="padding:12px;border-bottom:1px solid var(--border)">
                             <div style="display:flex;gap:10px">${img.next.map(n => `<div class="media-tile" style="width:80px;height:80px;border-color:var(--primary)">${n}</div>`).join("") || "无"}</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding:12px;border-bottom:1px solid var(--border);text-align:center">
+                            <input type="checkbox" data-act="toggle-winimg" data-id="${t.id}" ${winImg.apply ? "checked" : ""} ${!isPending ? "disabled" : ""} />
+                          </td>
+                          <td style="padding:12px;border-bottom:1px solid var(--border)">橱窗图</td>
+                          <td style="padding:12px;border-bottom:1px solid var(--border)">
+                            <div style="display:flex;gap:10px;flex-wrap:wrap">${(winImg.old || []).slice(0, 5).map(n => `<div class="media-tile" style="width:80px;height:80px">${n}</div>`).join("") || "无"}</div>
+                          </td>
+                          <td style="padding:12px;border-bottom:1px solid var(--border)">
+                            <div style="display:flex;gap:10px;flex-wrap:wrap">${(winImg.next || []).slice(0, 5).map(n => `<div class="media-tile" style="width:80px;height:80px;border-color:var(--primary)">${n}</div>`).join("") || "无"}</div>
                           </td>
                         </tr>
                       </tbody>
@@ -1720,7 +1741,7 @@
                             <td style="padding:10px 12px;text-align:center;border-bottom:1px solid #f0f0f0">1</td>
                             <td style="padding:10px 12px;border-bottom:1px solid #f0f0f0">
                                <div style="position:relative">
-                                 <input class="control" style="width:100%;height:28px;background:#fff" value="${isYLH ? '防护用品 / 一次性口罩' : '消毒用品 / 其它消毒用品'}" />
+                                 <input class="control" style="width:100%;height:28px;${!isPending ? "background:#f5f5f5" : "background:#fff"}" value="${isYLH ? '防护用品 / 一次性口罩' : '消毒用品 / 其它消毒用品'}" ${!isPending ? "disabled" : ""} />
                                  <span style="position:absolute;right:8px;top:6px;color:var(--muted)">v</span>
                                </div>
                             </td>
@@ -1738,14 +1759,14 @@
                     <div style="padding:24px">
                       <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品编码")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.productCode)}" disabled /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品名称")}</div><input class="control" style="flex:1" value="${value(f.productName || t.goodsName)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("条形码")}</div><input class="control" style="flex:1" value="${value(f.barcode || t.barcode)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("规格")}</div><input class="control" style="flex:1" value="${value(f.spec)}" /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品名称")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.productName || t.goodsName)}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品条码")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.barcode || t.barcode)}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("规格")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.spec)}" disabled /></div>
 
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("单位")}</div><input class="control" style="flex:1" value="${value(f.unit)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("产地")}</div><input class="control" style="flex:1" value="${value(f.origin)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("保质期(天)")}</div><input class="control" style="flex:1" value="${value(f.shelfLifeDays)}" /></div>
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("生产企业")}</div><input class="control" style="flex:1" value="${value(f.manufacturer)}" /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("单位")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.unit)}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("产地")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.origin)}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("保质期(天)")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.shelfLifeDays)}" disabled /></div>
+                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("生产企业")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.manufacturer)}" disabled /></div>
                       </div>
                     </div>
                   </div>
@@ -1916,6 +1937,12 @@
           const t = getTicket(id)
           if (!t || !t.imageDiff) return
           t.imageDiff.apply = !!el.checked
+          render()
+        } else if (act === "toggle-winimg") {
+          const id = el.getAttribute("data-id")
+          const t = getTicket(id)
+          if (!t || !t.windowImageDiff) return
+          t.windowImageDiff.apply = !!el.checked
           render()
         }
       })
