@@ -28,7 +28,9 @@
         --control-h: 36px;
         --btn-h: 40px;
         --btn2-h: 36px;
-        --font: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+        --font:
+          "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC",
+          "Source Han Sans SC", sans-serif;
       }
 
       * {
@@ -123,7 +125,7 @@
         transition: background 0.15s ease;
         position: relative;
         font-size: 20px;
-        color: rgba(255,255,255,0.7);
+        color: rgba(255, 255, 255, 0.7);
       }
 
       .nav-item:hover {
@@ -141,10 +143,10 @@
         position: absolute;
         right: 4px;
         font-size: 10px;
-        color: rgba(255,255,255,0.4);
+        color: rgba(255, 255, 255, 0.4);
       }
       .nav-item.active::after {
-        color: rgba(255,255,255,0.8);
+        color: rgba(255, 255, 255, 0.8);
       }
 
       .nav-item span.nav-text,
@@ -160,18 +162,18 @@
         width: 220px;
         background: #fff;
         border-radius: 4px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
         z-index: 200;
         padding: 8px 0;
         cursor: default;
         text-align: left;
         color: var(--text);
       }
-      
+
       .nav-item:hover .nav-menu-popover {
         display: block;
       }
-      
+
       .nav-menu-header {
         padding: 10px 16px;
         font-size: 14px;
@@ -184,7 +186,7 @@
         gap: 8px;
         border-radius: 4px 4px 0 0;
       }
-      
+
       .nav-sub-item {
         padding: 10px 16px 10px 32px;
         font-size: 14px;
@@ -192,15 +194,15 @@
         cursor: pointer;
         transition: background 0.15s;
       }
-      
+
       .nav-sub-item:hover {
         background: #f5f5f5;
         color: var(--primary);
       }
-      
-       .nav-item:hover::before {
-         display: none;
-       }
+
+      .nav-item:hover::before {
+        display: none;
+      }
 
       .main {
         grid-area: main;
@@ -315,7 +317,9 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        transition: background 0.15s ease, color 0.15s ease;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease;
       }
 
       .tab:hover {
@@ -550,8 +554,16 @@
         border-radius: 10px;
         border: 1px solid var(--border);
         background:
-          radial-gradient(120px 120px at 30% 25%, rgba(255, 127, 64, 0.12), transparent 60%),
-          radial-gradient(120px 120px at 70% 70%, rgba(0, 193, 97, 0.08), transparent 60%),
+          radial-gradient(
+            120px 120px at 30% 25%,
+            rgba(255, 127, 64, 0.12),
+            transparent 60%
+          ),
+          radial-gradient(
+            120px 120px at 70% 70%,
+            rgba(0, 193, 97, 0.08),
+            transparent 60%
+          ),
           #ffffff;
         box-shadow: 0 8px 16px rgba(18, 28, 45, 0.06);
         display: grid;
@@ -568,7 +580,12 @@
         z-index: 10;
         margin-top: -62px;
         padding-top: 10px;
-        background: linear-gradient(to bottom, rgba(245, 245, 245, 0), rgba(245, 245, 245, 0.86) 35%, rgba(245, 245, 245, 1));
+        background: linear-gradient(
+          to bottom,
+          rgba(245, 245, 245, 0),
+          rgba(245, 245, 245, 0.86) 35%,
+          rgba(245, 245, 245, 1)
+        );
       }
 
       .bottom-inner {
@@ -686,22 +703,22 @@
     </style>
     <script>
       window.addEventListener("error", (e) => {
-        const info = `${e.message || "Script error"} @ ${e.filename || ""}:${e.lineno || ""}:${e.colno || ""}`
-        const bar = document.createElement("div")
-        bar.style.position = "fixed"
-        bar.style.left = "50%"
-        bar.style.top = "12px"
-        bar.style.transform = "translateX(-50%)"
-        bar.style.background = "rgba(254, 34, 45, 0.92)"
-        bar.style.color = "#fff"
-        bar.style.padding = "10px 12px"
-        bar.style.borderRadius = "999px"
-        bar.style.fontSize = "14px"
-        bar.style.zIndex = "99999"
-        bar.style.boxShadow = "0 18px 40px rgba(0,0,0,0.25)"
-        bar.textContent = info
-        document.body.appendChild(bar)
-      })
+        const info = `${e.message || "Script error"} @ ${e.filename || ""}:${e.lineno || ""}:${e.colno || ""}`;
+        const bar = document.createElement("div");
+        bar.style.position = "fixed";
+        bar.style.left = "50%";
+        bar.style.top = "12px";
+        bar.style.transform = "translateX(-50%)";
+        bar.style.background = "rgba(254, 34, 45, 0.92)";
+        bar.style.color = "#fff";
+        bar.style.padding = "10px 12px";
+        bar.style.borderRadius = "999px";
+        bar.style.fontSize = "14px";
+        bar.style.zIndex = "99999";
+        bar.style.boxShadow = "0 18px 40px rgba(0,0,0,0.25)";
+        bar.textContent = info;
+        document.body.appendChild(bar);
+      });
     </script>
   </head>
   <body>
@@ -712,8 +729,20 @@
           海典商品标库 · 优礼汇对接原型
         </div>
         <div class="topbar-right">
-          <span style="display:flex;align-items:center;gap:8px">
-            <span style="display:inline-block;width:24px;height:24px;background:rgba(255,255,255,0.2);border-radius:50%;text-align:center;line-height:24px;font-size:12px">👤</span>
+          <span style="display: flex; align-items: center; gap: 8px">
+            <span
+              style="
+                display: inline-block;
+                width: 24px;
+                height: 24px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                text-align: center;
+                line-height: 24px;
+                font-size: 12px;
+              "
+              >👤</span
+            >
             谢峰
           </span>
         </div>
@@ -738,7 +767,12 @@
             <div class="nav-menu-popover">
               <div class="nav-menu-header">🛍️ 商品中心</div>
               <div class="nav-sub-item">平台商品资料</div>
-              <div class="nav-sub-item" style="color:var(--primary);background:#f9f9f9">平台商品资料新增&审核</div>
+              <div
+                class="nav-sub-item"
+                style="color: var(--primary); background: #f9f9f9"
+              >
+                平台商品资料新增&审核
+              </div>
               <div class="nav-sub-item">美团商品库</div>
               <div class="nav-sub-item">准商品资料库</div>
               <div class="nav-sub-item">新品申请管理</div>
@@ -776,18 +810,24 @@
       </div>
     </div>
 
-    <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div
+      class="overlay"
+      id="overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
       <div class="modal" id="modal"></div>
     </div>
     <div class="toast" id="toast"></div>
 
     <script>
-      const PLATFORM_LABEL = { YOU_LI_HUI: "优礼汇" }
+      const PLATFORM_LABEL = { YOU_LI_HUI: "优礼汇" };
       const STATUS_META = {
         PENDING: { text: "待审核", tone: "warning" },
         REJECTED: { text: "审核不通过", tone: "danger" },
-        DONE: { text: "审核成功", tone: "success" }
-      }
+        DONE: { text: "审核成功", tone: "success" },
+      };
       const STOCK_DEFAULTS = {
         goodsType: "商品",
         approvalNumber: "无",
@@ -796,8 +836,8 @@
         efficacyCategory: "生活用品",
         dosageForm: "无",
         brand: "无",
-        specialCompound: "否"
-      }
+        specialCompound: "否",
+      };
 
       const state = {
         ui: { platform: "ALL", status: "", keyword: "" },
@@ -807,7 +847,7 @@
             platformId: "YOU_LI_HUI",
             type: "NEW",
             status: "PENDING",
-            sourceGoodsCode: "YLH-000312",
+            sourceGoodsId: "100312",
             goodsName: "医用酒精棉片",
             barcode: "6931234567890",
             submitter: "优礼汇-运营A",
@@ -832,21 +872,30 @@
               shelfLifeDays: "730",
               tags: "医疗,消毒",
               virtualSales: "0",
-              remark: "图片齐全后可快速上架"
+              remark: "图片齐全后可快速上架",
             },
             media: {
               images: ["主图1", "主图2", "主图3", "主图4"],
-              windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"],
+              windowImages: [
+                "橱窗图1",
+                "橱窗图2",
+                "橱窗图3",
+                "橱窗图4",
+                "橱窗图5",
+              ],
               video: "商品主视频.mp4",
-              attachments: [{ name: "资质证明.pdf", size: "1.2MB" }, { name: "说明书.docx", size: "820KB" }]
-            }
+              attachments: [
+                { name: "资质证明.pdf", size: "1.2MB" },
+                { name: "说明书.docx", size: "820KB" },
+              ],
+            },
           },
           {
             id: "T202604120009",
             platformId: "YOU_LI_HUI",
             type: "NEW",
             status: "DONE",
-            sourceGoodsCode: "YLH-000312",
+            sourceGoodsId: "YLH-000312",
             goodsName: "医用酒精棉片(已审核)",
             barcode: "6931234567890",
             submitter: "优礼汇-运营A",
@@ -861,16 +910,27 @@
               unit: "盒",
               origin: "湖南长沙",
               shelfLifeDays: "730",
-              manufacturer: "某某医疗器械有限公司"
+              manufacturer: "某某医疗器械有限公司",
             },
-            media: { images: ["主图1"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
+            media: {
+              images: ["主图1"],
+              windowImages: [
+                "橱窗图1",
+                "橱窗图2",
+                "橱窗图3",
+                "橱窗图4",
+                "橱窗图5",
+              ],
+              video: "",
+              attachments: [],
+            },
           },
           {
             id: "T202604130002",
             platformId: "YOU_LI_HUI",
             type: "EDIT",
             status: "REJECTED",
-            sourceGoodsCode: "YLH-001028",
+            sourceGoodsId: "101028",
             goodsName: "一次性口罩",
             barcode: "6900000012345",
             submitter: "优礼汇-运营B",
@@ -886,25 +946,70 @@
               unit: "包",
               origin: "河北",
               shelfLifeDays: "365",
-              manufacturer: "某某医疗用品有限公司"
+              manufacturer: "某某医疗用品有限公司",
             },
             diffs: [
-              { key: "goodsName", name: "商品名", oldValue: "一次性口罩", newValue: "一次性医用口罩", apply: true },
-              { key: "unit", name: "单位", oldValue: "包", newValue: "盒", apply: true },
-              { key: "shelfLifeDays", name: "保质期(天)", oldValue: "365", newValue: "730", apply: true },
-              { key: "category", name: "商品分类", oldValue: "防护用品", newValue: "防护/医用", apply: true },
-              { key: "cartonSpec", name: "箱规", oldValue: "1箱=40包", newValue: "1箱=60包", apply: false }
+              {
+                key: "goodsName",
+                name: "商品名",
+                oldValue: "一次性口罩",
+                newValue: "一次性医用口罩",
+                apply: true,
+              },
+              {
+                key: "unit",
+                name: "单位",
+                oldValue: "包",
+                newValue: "盒",
+                apply: true,
+              },
+              {
+                key: "shelfLifeDays",
+                name: "保质期(天)",
+                oldValue: "365",
+                newValue: "730",
+                apply: true,
+              },
+              {
+                key: "category",
+                name: "商品分类",
+                oldValue: "防护用品",
+                newValue: "防护/医用",
+                apply: true,
+              },
+              {
+                key: "cartonSpec",
+                name: "箱规",
+                oldValue: "1箱=40包",
+                newValue: "1箱=60包",
+                apply: false,
+              },
             ],
             imageDiff: { old: ["原图1"], next: ["新图1"], apply: true },
-            windowImageDiff: { old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"], next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"], apply: true },
-            media: { images: ["新图1"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
+            windowImageDiff: {
+              old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"],
+              next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"],
+              apply: true,
+            },
+            media: {
+              images: ["新图1"],
+              windowImages: [
+                "橱窗图1",
+                "橱窗图2",
+                "橱窗图3",
+                "橱窗图4",
+                "橱窗图5",
+              ],
+              video: "",
+              attachments: [],
+            },
           },
           {
             id: "T202604140004",
             platformId: "YOU_LI_HUI",
             type: "EDIT",
             status: "PENDING",
-            sourceGoodsCode: "YLH-002399",
+            sourceGoodsId: "102399",
             goodsName: "板蓝根颗粒",
             barcode: "6921111122222",
             submitter: "优礼汇-运营C",
@@ -930,22 +1035,53 @@
               shelfLifeDays: "730",
               tags: "OTC,感冒",
               virtualSales: "500",
-              remark: "包装升级，更新了生产企业名称和主图"
+              remark: "包装升级，更新了生产企业名称和主图",
             },
             diffs: [
-              { key: "manufacturer", name: "生产企业", oldValue: "某某中药厂旧址", newValue: "某某中药厂（新厂区）", apply: true },
-              { key: "cartonSpec", name: "箱规", oldValue: "1箱=40包", newValue: "1箱=60包", apply: false }
+              {
+                key: "manufacturer",
+                name: "生产企业",
+                oldValue: "某某中药厂旧址",
+                newValue: "某某中药厂（新厂区）",
+                apply: true,
+              },
+              {
+                key: "cartonSpec",
+                name: "箱规",
+                oldValue: "1箱=40包",
+                newValue: "1箱=60包",
+                apply: false,
+              },
             ],
-            imageDiff: { old: ["旧包装主图"], next: ["新包装主图"], apply: true },
-            windowImageDiff: { old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"], next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"], apply: false },
-            media: { images: ["新包装主图", "背面图"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [{ name: "新版包装说明.pdf", size: "2.1MB" }] }
+            imageDiff: {
+              old: ["旧包装主图"],
+              next: ["新包装主图"],
+              apply: true,
+            },
+            windowImageDiff: {
+              old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"],
+              next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"],
+              apply: false,
+            },
+            media: {
+              images: ["新包装主图", "背面图"],
+              windowImages: [
+                "橱窗图1",
+                "橱窗图2",
+                "橱窗图3",
+                "橱窗图4",
+                "橱窗图5",
+              ],
+              video: "",
+              attachments: [{ name: "新版包装说明.pdf", size: "2.1MB" }],
+            },
           },
           {
             id: "T202604110021",
             platformId: "YOU_LI_HUI",
             type: "EDIT",
             status: "DONE",
-            sourceGoodsCode: "YLH-001028",
+            sourceGoodsId: "YLH-001028",
             goodsName: "一次性口罩(上次已审核)",
             barcode: "6900000012345",
             submitter: "优礼汇-运营B",
@@ -961,21 +1097,42 @@
               unit: "盒",
               origin: "河北",
               shelfLifeDays: "365",
-              manufacturer: "某某医疗用品有限公司"
+              manufacturer: "某某医疗用品有限公司",
             },
             diffs: [
-              { key: "unit", name: "单位", oldValue: "包", newValue: "盒", apply: true }
+              {
+                key: "unit",
+                name: "单位",
+                oldValue: "包",
+                newValue: "盒",
+                apply: true,
+              },
             ],
             imageDiff: { old: ["原图1"], next: ["新图1"], apply: true },
-            windowImageDiff: { old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"], next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"], apply: true },
-            media: { images: ["新图1"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
+            windowImageDiff: {
+              old: ["橱窗旧1", "橱窗旧2", "橱窗旧3", "橱窗旧4", "橱窗旧5"],
+              next: ["橱窗新1", "橱窗新2", "橱窗新3", "橱窗新4", "橱窗新5"],
+              apply: true,
+            },
+            media: {
+              images: ["新图1"],
+              windowImages: [
+                "橱窗图1",
+                "橱窗图2",
+                "橱窗图3",
+                "橱窗图4",
+                "橱窗图5",
+              ],
+              video: "",
+              attachments: [],
+            },
           },
           {
             id: "T202604150005",
             platformId: "YOU_LI_HUI",
             type: "NEW",
             status: "PENDING",
-            sourceGoodsCode: "YLH-000312",
+            sourceGoodsId: "YLH-000312",
             goodsName: "医用酒精棉片(二次提交-覆盖)",
             barcode: "6931234567890",
             submitter: "优礼汇-系统推送",
@@ -992,16 +1149,27 @@
               unit: "盒",
               cartonSpec: "1箱=20盒",
               minBatch: "1",
-              manufacturer: "某某医疗器械有限公司"
+              manufacturer: "某某医疗器械有限公司",
             },
-            media: { images: ["主图1", "主图2"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
+            media: {
+              images: ["主图1", "主图2"],
+              windowImages: [
+                "橱窗图1",
+                "橱窗图2",
+                "橱窗图3",
+                "橱窗图4",
+                "橱窗图5",
+              ],
+              video: "",
+              attachments: [],
+            },
           },
           {
             id: "T202604150006",
             platformId: "YOU_LI_HUI",
             type: "NEW",
             status: "PENDING",
-            sourceGoodsCode: "YLH-009999",
+            sourceGoodsId: "109999",
             goodsName: "测试8字段冲突商品",
             barcode: "6999999999999",
             submitter: "优礼汇-运营D",
@@ -1020,182 +1188,207 @@
               minBatch: "1",
               origin: "上海",
               shelfLifeDays: "365",
-              manufacturer: "测试企业"
+              manufacturer: "测试企业",
             },
-            media: { images: ["测试图"], windowImages: ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"], video: "", attachments: [] }
-          }
-        ]
-      }
+            media: {
+              images: ["测试图"],
+              windowImages: [
+                "橱窗图1",
+                "橱窗图2",
+                "橱窗图3",
+                "橱窗图4",
+                "橱窗图5",
+              ],
+              video: "",
+              attachments: [],
+            },
+          },
+        ],
+      };
 
       const normalizeTickets = (list) => {
-        const sorted = [...list].sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
-        const newGroups = new Map()
-        const editGroups = new Map()
+        const sorted = [...list].sort((a, b) =>
+          (b.createdAt || "").localeCompare(a.createdAt || ""),
+        );
+        const newGroups = new Map();
+        const editGroups = new Map();
 
         for (const t of sorted) {
           if (t.type === "NEW") {
-            const key = `${t.platformId}|${t.sourceGoodsCode || (t.fields && t.fields.productCode) || t.goodsName || t.id}`
-            const arr = newGroups.get(key) || []
-            arr.push(t)
-            newGroups.set(key, arr)
+            const key = `${t.platformId}|${t.sourceGoodsId || (t.fields && t.fields.productCode) || t.goodsName || t.id}`;
+            const arr = newGroups.get(key) || [];
+            arr.push(t);
+            newGroups.set(key, arr);
           } else {
-            const key = `${t.platformId}|${t.platformCode || t.sourceGoodsCode || t.goodsName || t.id}`
-            const arr = editGroups.get(key) || []
-            arr.push(t)
-            editGroups.set(key, arr)
+            const key = `${t.platformId}|${t.platformCode || t.sourceGoodsId || t.goodsName || t.id}`;
+            const arr = editGroups.get(key) || [];
+            arr.push(t);
+            editGroups.set(key, arr);
           }
         }
 
         const pickNew = (arr) => {
-          const done = arr.find((x) => x.status === "DONE")
-          if (done) return done
-          return arr[0]
-        }
+          const done = arr.find((x) => x.status === "DONE");
+          if (done) return done;
+          return arr[0];
+        };
 
-        const picked = []
+        const picked = [];
         for (const arr of newGroups.values()) {
-          picked.push(pickNew(arr))
+          picked.push(pickNew(arr));
         }
 
         const keepEdit = (arr) => {
-          const dones = arr.filter((x) => x.status === "DONE")
-          const others = arr.filter((x) => x.status !== "DONE")
-          const latestOther = others.length ? others[0] : null
-          return [...dones, ...(latestOther ? [latestOther] : [])]
-        }
+          const dones = arr.filter((x) => x.status === "DONE");
+          const others = arr.filter((x) => x.status !== "DONE");
+          const latestOther = others.length ? others[0] : null;
+          return [...dones, ...(latestOther ? [latestOther] : [])];
+        };
         for (const arr of editGroups.values()) {
-          picked.push(...keepEdit(arr))
+          picked.push(...keepEdit(arr));
         }
 
-        return picked.sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
-      }
-      state.tickets = normalizeTickets(state.tickets)
+        return picked.sort((a, b) =>
+          (b.createdAt || "").localeCompare(a.createdAt || ""),
+        );
+      };
+      state.tickets = normalizeTickets(state.tickets);
 
-      const $ = (sel) => document.querySelector(sel)
-      const root = $("#root")
-      const toastEl = $("#toast")
-      const overlay = $("#overlay")
-      const modal = $("#modal")
+      const $ = (sel) => document.querySelector(sel);
+      const root = $("#root");
+      const toastEl = $("#toast");
+      const overlay = $("#overlay");
+      const modal = $("#modal");
 
       const toast = (text) => {
-        toastEl.textContent = text
-        toastEl.classList.add("show")
-        window.clearTimeout(toast._t)
-        toast._t = window.setTimeout(() => toastEl.classList.remove("show"), 1600)
-      }
+        toastEl.textContent = text;
+        toastEl.classList.add("show");
+        window.clearTimeout(toast._t);
+        toast._t = window.setTimeout(
+          () => toastEl.classList.remove("show"),
+          1600,
+        );
+      };
 
-      const tag = (tone, text) => `<span class="tag ${tone || ""}">${text}</span>`
+      const tag = (tone, text) =>
+        `<span class="tag ${tone || ""}">${text}</span>`;
       const statusTag = (t) => {
-        const m = STATUS_META[t.status] || { text: t.status, tone: "" }
-        return tag(m.tone, m.text)
-      }
-      const platformTag = (t) => tag("primary", `来源平台：${PLATFORM_LABEL[t.platformId] || t.platformId}`)
+        const m = STATUS_META[t.status] || { text: t.status, tone: "" };
+        return tag(m.tone, m.text);
+      };
+      const platformTag = (t) =>
+        tag(
+          "primary",
+          `来源平台：${PLATFORM_LABEL[t.platformId] || t.platformId}`,
+        );
 
       const openModal = (title, bodyHtml, actionsHtml) => {
         modal.innerHTML = `
           <div class="modal-header"><div class="modal-title">${title}</div></div>
           <div class="modal-body">${bodyHtml}</div>
           <div class="modal-actions">${actionsHtml}</div>
-        `
-        overlay.classList.add("show")
-        overlay.setAttribute("aria-hidden", "false")
-      }
+        `;
+        overlay.classList.add("show");
+        overlay.setAttribute("aria-hidden", "false");
+      };
       const closeModal = () => {
-        overlay.classList.remove("show")
-        overlay.setAttribute("aria-hidden", "true")
-      }
+        overlay.classList.remove("show");
+        overlay.setAttribute("aria-hidden", "true");
+      };
       overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) closeModal()
-      })
+        if (e.target === overlay) closeModal();
+      });
       window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal()
-      })
+        if (e.key === "Escape") closeModal();
+      });
 
       const navTo = (hash) => {
-        window.location.hash = hash
-      }
-      const getTicket = (id) => state.tickets.find((t) => t.id === id)
+        window.location.hash = hash;
+      };
+      const getTicket = (id) => state.tickets.find((t) => t.id === id);
 
       const calcCounts = () => {
-        const all = state.tickets.length
-        const ylh = state.tickets.filter((t) => t.platformId === "YOU_LI_HUI").length
-        return { ALL: all, YOU_LI_HUI: ylh }
-      }
+        const all = state.tickets.length;
+        const ylh = state.tickets.filter(
+          (t) => t.platformId === "YOU_LI_HUI",
+        ).length;
+        return { ALL: all, YOU_LI_HUI: ylh };
+      };
 
       const applyApprove = (t) => {
         if (t.type === "NEW") {
-          toast("系统正在进行入库前8个核心字段唯一校验...")
+          toast("系统正在进行入库前8个核心字段唯一校验...");
         }
-        
+
         window.setTimeout(() => {
           if (t.goodsName === "测试8字段冲突商品") {
-            toast("标库校验命中：已存在相同8字段记录，本次按更新标库资料执行")
-            t.platformCode = t.platformCode || "HD-YLH-000888"
+            toast("标库校验命中：已存在相同8字段记录，本次按更新标库资料执行");
+            t.platformCode = t.platformCode || "HD-YLH-000888";
           }
 
           if (!t.platformCode) {
-            const seg = t.platformId === "YOU_LI_HUI" ? "YLH" : t.platformId
-            t.platformCode = `HD-${seg}-${Math.floor(100000 + Math.random() * 900000)}`
+            const seg = t.platformId === "YOU_LI_HUI" ? "YLH" : t.platformId;
+            t.platformCode = `HD-${seg}-${Math.floor(100000 + Math.random() * 900000)}`;
           }
-          t.status = "DONE"
-          render()
-          toast("审核成功，已完成数据流转")
-        }, 800)
-      }
+          t.status = "DONE";
+          render();
+          toast("审核成功，已完成数据流转");
+        }, 800);
+      };
 
       const approve = (id) => {
-        const t = getTicket(id)
-        if (!t) return
-        
-        let desc = "确认审核通过？"
+        const t = getTicket(id);
+        if (!t) return;
+
+        let desc = "确认审核通过？";
         if (t.type === "NEW" && t.platformId === "YOU_LI_HUI") {
-            desc = `<div style="color:var(--muted);line-height:1.6">通过后将入标库（新增一个平台商品编码），并同步至优礼汇侧。</div>`
+          desc = `<div style="color:var(--muted);line-height:1.6">通过后将入标库（新增一个平台商品编码），并同步至优礼汇侧。</div>`;
         } else if (t.type === "EDIT" && t.platformId === "YOU_LI_HUI") {
-            desc = `<div style="color:var(--muted);line-height:1.6">通过后将同步所选的变更字段至商品标库，并反馈至优礼汇。</div>`
+          desc = `<div style="color:var(--muted);line-height:1.6">通过后将同步所选的变更字段至商品标库，并反馈至优礼汇。</div>`;
         }
-        
+
         openModal(
           "审核通过确认",
           `${desc}
            <div style="height:10px"></div>
-           <div class="kv"><div class="k">来源商品编码</div><div class="v">${t.sourceGoodsCode || "-"}</div><div class="k">商品名称</div><div class="v">${t.goodsName || "-"}</div></div>`,
-          `<button class="btn secondary" data-act="close">取消</button><button class="btn primary" data-act="confirm-approve" data-id="${t.id}">确认通过</button>`
-        )
-      }
+           <div class="kv"><div class="k">商品编码</div><div class="v">${t.sourceGoodsId || "-"}</div><div class="k">商品名称</div><div class="v">${t.goodsName || "-"}</div></div>`,
+          `<button class="btn secondary" data-act="close">取消</button><button class="btn primary" data-act="confirm-approve" data-id="${t.id}">确认通过</button>`,
+        );
+      };
 
       const reject = (id) => {
-        const t = getTicket(id)
-        if (!t) return
+        const t = getTicket(id);
+        if (!t) return;
 
         openModal(
           "审核驳回",
           `<div style="color:var(--muted);line-height:1.6">驳回后将回传原因至优礼汇侧，并将单据状态置为“已驳回”。</div>
            <div style="height:10px"></div>
            <textarea class="text-area" id="rejectReason" placeholder="请输入驳回原因（必填）"></textarea>`,
-          `<button class="btn secondary" data-act="close">取消</button><button class="btn danger" data-act="confirm-reject" data-id="${t.id}">确认驳回</button>`
-        )
+          `<button class="btn secondary" data-act="close">取消</button><button class="btn danger" data-act="confirm-reject" data-id="${t.id}">确认驳回</button>`,
+        );
         window.setTimeout(() => {
-          const ta = $("#rejectReason")
-          if (ta) ta.focus()
-        }, 30)
-      }
+          const ta = $("#rejectReason");
+          if (ta) ta.focus();
+        }, 30);
+      };
 
       const retryCallback = (id) => {
-        const t = getTicket(id)
-        if (!t) return
-        applyApprove(t)
-      }
+        const t = getTicket(id);
+        if (!t) return;
+        applyApprove(t);
+      };
 
       const previewMedia = (title, items, index) => {
-        const i = Math.max(0, Math.min(items.length - 1, index))
+        const i = Math.max(0, Math.min(items.length - 1, index));
         openModal(
           title,
           `<div style="height:360px;border-radius:14px;border:1px solid var(--border);display:grid;place-items:center;background:radial-gradient(220px 220px at 30% 25%, rgba(255,127,64,0.12), transparent 60%),radial-gradient(220px 220px at 70% 70%, rgba(0,193,97,0.08), transparent 60%),#fff;font-size:20px;font-weight:800;color:rgba(34,34,34,0.78)">${items[i]}</div>`,
           `<button class="btn secondary" data-act="prev-media" data-title="${encodeURIComponent(title)}" data-items="${encodeURIComponent(JSON.stringify(items))}" data-idx="${i}">上一张</button>
            <button class="btn secondary" data-act="next-media" data-title="${encodeURIComponent(title)}" data-items="${encodeURIComponent(JSON.stringify(items))}" data-idx="${i}">下一张</button>
-           <button class="btn primary" data-act="close">关闭</button>`
-        )
-      }
+           <button class="btn primary" data-act="close">关闭</button>`,
+        );
+      };
 
       const renderShots = () => {
         root.innerHTML = `
@@ -1213,29 +1406,30 @@
               </div>
             </div>
           </div>
-        `
-      }
+        `;
+      };
 
-      
       const renderAuditList = () => {
-        const title = "平台商品资料新增&审核"
-        const crumbs = `首页 / ${title}`
-        
+        const title = "平台商品资料新增&审核";
+        const crumbs = `首页 / ${title}`;
+
         const tickets = state.tickets
-          .filter((t) => (state.ui.status ? t.status === state.ui.status : true))
+          .filter((t) =>
+            state.ui.status ? t.status === state.ui.status : true,
+          )
           .filter((t) => {
-            const kw = (state.ui.keyword || "").trim()
-            if (!kw) return true
-            const s = `${t.platformCode || ""} ${t.goodsName} ${t.barcode || ""}`
-            return s.includes(kw)
-          })
-          
+            const kw = (state.ui.keyword || "").trim();
+            if (!kw) return true;
+            const s = `${t.platformCode || ""} ${t.goodsName} ${t.barcode || ""}`;
+            return s.includes(kw);
+          });
+
         const row = (t) => {
-          const isPending = t.status === "PENDING"
-          const fields = t.fields || {}
-          const bizType = t.type === "NEW" ? "新品申请" : "资料变更"
-          const source = PLATFORM_LABEL[t.platformId] || "-"
-          
+          const isPending = t.status === "PENDING";
+          const fields = t.fields || {};
+          const bizType = t.type === "NEW" ? "新品申请" : "资料变更";
+          const source = PLATFORM_LABEL[t.platformId] || "-";
+
           return `
             <tr>
               <td>${t.platformCode || '<span style="color:var(--muted)">-</span>'}</td>
@@ -1250,13 +1444,13 @@
               <td>${statusTag(t)}</td>
               <td>${t.createdAt || "-"}</td>
               <td>${t.status !== "PENDING" ? "2026-04-13 14:22:00" : "-"}</td>
-              <td>
-                <span class="link" data-act="open" data-id="${t.id}">${isPending ? '审核' : '查看'}</span>
+              <td style="text-align:center">
+                ${isPending ? `<span class="link" data-act="open" data-id="${t.id}">审核</span>` : `<span style="color:var(--muted)">--</span>`}
               </td>
             </tr>
-          `
-        }
-        
+          `;
+        };
+
         root.innerHTML = `
           <div class="page" style="background:#fff;border-radius:6px;box-shadow:var(--shadow-soft);height:calc(100vh - var(--topbar-h) - 24px);margin:12px;padding:0">
             <div class="page-header" style="padding:12px 16px;border-bottom:1px solid var(--border)">
@@ -1331,33 +1525,36 @@
               </div>
             </div>
           </div>
-        `
-        const qBtn = root.querySelector("button.primary")
+        `;
+        const qBtn = root.querySelector("button.primary");
         if (qBtn) {
-           qBtn.addEventListener("click", () => { render() })
+          qBtn.addEventListener("click", () => {
+            render();
+          });
         }
-      }
+      };
 
       const renderNew = (id) => {
-        const t = getTicket(id)
+        const t = getTicket(id);
         if (!t) {
-          root.innerHTML = `<div class="page"><div class="card"><div class="card-body">单据不存在</div></div></div>`
-          return
+          root.innerHTML = `<div class="page"><div class="card"><div class="card-body">单据不存在</div></div></div>`;
+          return;
         }
-        const f = t.fields || {}
-        const imagesAll = (t.media && t.media.images) || []
-        const images = imagesAll.length ? [imagesAll[0]] : []
-        const windowImages = (t.media && t.media.windowImages) || []
-        const required = (s) => `<span style="color:var(--danger);margin-right:4px">*</span>${s}`
-        const isPending = t.status === "PENDING"
-        const isYLH = t.platformId === "YOU_LI_HUI"
-        const value = (v) => (v === null || v === undefined ? "" : String(v))
-        
+        const f = t.fields || {};
+        const imagesAll = (t.media && t.media.images) || [];
+        const images = imagesAll.length ? [imagesAll[0]] : [];
+        const windowImages = (t.media && t.media.windowImages) || [];
+        const required = (s) =>
+          `<span style="color:var(--danger);margin-right:4px">*</span>${s}`;
+        const isPending = t.status === "PENDING";
+        const isYLH = t.platformId === "YOU_LI_HUI";
+        const value = (v) => (v === null || v === undefined ? "" : String(v));
+
         if (isYLH) {
-          const readonly = !isPending
-          const dis = readonly ? "disabled" : ""
-          const roStyle = readonly ? 'background:#f5f5f5' : ''
-          const catValue = value(f.category || "")
+          const readonly = !isPending;
+          const dis = readonly ? "disabled" : "";
+          const roStyle = readonly ? "background:#f5f5f5" : "";
+          const catValue = value(f.category || "");
 
           root.innerHTML = `
             <div class="page" style="background:#f0f2f5;padding:0">
@@ -1456,7 +1653,41 @@
                       <div style="height:16px"></div>
                       <div style="font-weight:700;margin-bottom:10px">${required("商品橱窗图")}</div>
                       <div class="media-grid" style="grid-template-columns:repeat(5, 1fr)">
-                        ${(windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5).map((n, i) => '<div class="media-tile" data-act="preview-media" data-title="商品橱窗图预览" data-items="' + encodeURIComponent(JSON.stringify((windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5))) + '" data-idx="' + i + '">' + n + "</div>").join("")}
+                        ${(windowImages.length
+                          ? windowImages
+                          : [
+                              "橱窗图1",
+                              "橱窗图2",
+                              "橱窗图3",
+                              "橱窗图4",
+                              "橱窗图5",
+                            ]
+                        )
+                          .slice(0, 5)
+                          .map(
+                            (n, i) =>
+                              '<div class="media-tile" data-act="preview-media" data-title="商品橱窗图预览" data-items="' +
+                              encodeURIComponent(
+                                JSON.stringify(
+                                  (windowImages.length
+                                    ? windowImages
+                                    : [
+                                        "橱窗图1",
+                                        "橱窗图2",
+                                        "橱窗图3",
+                                        "橱窗图4",
+                                        "橱窗图5",
+                                      ]
+                                  ).slice(0, 5),
+                                ),
+                              ) +
+                              '" data-idx="' +
+                              i +
+                              '">' +
+                              n +
+                              "</div>",
+                          )
+                          .join("")}
                       </div>
                     </div>
                   </div>
@@ -1473,14 +1704,14 @@
               </div>
 
               <div style="position:fixed;bottom:0;left:var(--sidebar-w);right:0;height:50px;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:flex-end;align-items:center;padding:0 24px;gap:12px;box-shadow:0 -2px 8px rgba(0,0,0,0.05)">
-                ${t.status === 'REJECTED' && t.rejectReason ? `<div style="margin-right:auto;color:var(--danger);font-size:14px;display:flex;align-items:center;gap:6px"><span>驳回原因：</span>${t.rejectReason}</div>` : ''}
+                ${t.status === "REJECTED" && t.rejectReason ? `<div style="margin-right:auto;color:var(--danger);font-size:14px;display:flex;align-items:center;gap:6px"><span>驳回原因：</span>${t.rejectReason}</div>` : ""}
                 <button class="btn secondary" data-act="back">取消</button>
-                <button class="btn danger" data-act="reject" data-id="${t.id}" ${!isPending && t.status !== 'REJECTED' ? "disabled" : ""}>驳回</button>
+                <button class="btn danger" data-act="reject" data-id="${t.id}" ${!isPending && t.status !== "REJECTED" ? "disabled" : ""}>驳回</button>
                 <button class="btn primary" data-act="approve" data-id="${t.id}" ${!isPending ? "disabled" : ""}>审核通过 (保存)</button>
               </div>
             </div>
-          `
-          return
+          `;
+          return;
         }
 
         root.innerHTML = `
@@ -1592,34 +1823,35 @@
               <button class="btn primary" data-act="approve" data-id="${t.id}" ${!isPending ? "disabled" : ""}>审核通过 (保存)</button>
             </div>
           </div>
-        `
-      }
+        `;
+      };
 
       const renderEdit = (id) => {
-        const t = getTicket(id)
+        const t = getTicket(id);
         if (!t) {
-          root.innerHTML = `<div class="page"><div class="card"><div class="card-body">单据不存在</div></div></div>`
-          return
+          root.innerHTML = `<div class="page"><div class="card"><div class="card-body">单据不存在</div></div></div>`;
+          return;
         }
-        
-        const isPending = t.status === "PENDING"
-        const f = t.fields || {}
-        const img = t.imageDiff || { old: [], next: [], apply: false }
-        const winImg = t.windowImageDiff || { old: [], next: [], apply: false }
-        const imagesAll = (t.media && t.media.images) || []
-        const images = imagesAll.length ? [imagesAll[0]] : []
-        const windowImages = (t.media && t.media.windowImages) || []
-        const value = (v) => (v === null || v === undefined ? "" : String(v))
-        const required = (s) => `<span style="color:var(--danger);margin-right:4px">*</span>${s}`
 
-        const isYLH = t.platformId === "YOU_LI_HUI"
+        const isPending = t.status === "PENDING";
+        const f = t.fields || {};
+        const img = t.imageDiff || { old: [], next: [], apply: false };
+        const winImg = t.windowImageDiff || { old: [], next: [], apply: false };
+        const imagesAll = (t.media && t.media.images) || [];
+        const images = imagesAll.length ? [imagesAll[0]] : [];
+        const windowImages = (t.media && t.media.windowImages) || [];
+        const value = (v) => (v === null || v === undefined ? "" : String(v));
+        const required = (s) =>
+          `<span style="color:var(--danger);margin-right:4px">*</span>${s}`;
+
+        const isYLH = t.platformId === "YOU_LI_HUI";
 
         root.innerHTML = `
           <div class="page" style="background:#f0f2f5;padding:0">
             <div style="background:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)">
               <div style="font-size:18px;font-weight:600">平台商品资料修改审核详情</div>
               <div style="display:flex;gap:12px">
-                <button class="btn secondary" style="color:var(--muted);cursor:help" title="【防重机制】来源平台+商品编码+变更标识 三方维度唯一校验">系统已过三方维度校验</button>
+                <button class="btn secondary" style="color:var(--muted);cursor:help" title="【防重机制】来源平台+商品ID+变更标识 三方维度唯一校验">系统已过三方维度校验</button>
               </div>
             </div>
             
@@ -1645,10 +1877,22 @@
                         </tr>
                       </thead>
                       <tbody>
-                        ${(t.diffs || []).map((d, i) => {
-                          const allowKeys = ["productCode", "goodsName", "productName", "barcode", "spec", "unit", "origin", "shelfLifeDays", "manufacturer"]
-                          if (!allowKeys.includes(d.key)) return ""
-                          return `
+                        ${
+                          (t.diffs || [])
+                            .map((d, i) => {
+                              const allowKeys = [
+                                "productCode",
+                                "goodsName",
+                                "productName",
+                                "barcode",
+                                "spec",
+                                "unit",
+                                "origin",
+                                "shelfLifeDays",
+                                "manufacturer",
+                              ];
+                              if (!allowKeys.includes(d.key)) return "";
+                              return `
                           <tr>
                             <td style="padding:12px;border-bottom:1px solid var(--border);text-align:center">
                               <input type="checkbox" data-act="toggle-diff" data-id="${t.id}" data-idx="${i}" ${d.apply ? "checked" : ""} ${!isPending ? "disabled" : ""} />
@@ -1657,8 +1901,11 @@
                             <td style="padding:12px;border-bottom:1px solid var(--border);color:var(--muted)">${d.oldValue || "-"}</td>
                             <td style="padding:12px;border-bottom:1px solid var(--border);color:var(--primary);font-weight:600">${d.newValue || "-"}</td>
                           </tr>
-                        `
-                        }).join("") || `<tr><td colspan="4" style="padding:14px;color:var(--muted);text-align:center">无</td></tr>`}
+                        `;
+                            })
+                            .join("") ||
+                          `<tr><td colspan="4" style="padding:14px;color:var(--muted);text-align:center">无</td></tr>`
+                        }
                       </tbody>
                     </table>
                     
@@ -1679,10 +1926,10 @@
                           </td>
                           <td style="padding:12px;border-bottom:1px solid var(--border)">商品主图</td>
                           <td style="padding:12px;border-bottom:1px solid var(--border)">
-                            <div style="display:flex;gap:10px">${img.old.map(n => `<div class="media-tile" style="width:80px;height:80px">${n}</div>`).join("") || "无"}</div>
+                            <div style="display:flex;gap:10px">${img.old.map((n) => `<div class="media-tile" style="width:80px;height:80px">${n}</div>`).join("") || "无"}</div>
                           </td>
                           <td style="padding:12px;border-bottom:1px solid var(--border)">
-                            <div style="display:flex;gap:10px">${img.next.map(n => `<div class="media-tile" style="width:80px;height:80px;border-color:var(--primary)">${n}</div>`).join("") || "无"}</div>
+                            <div style="display:flex;gap:10px">${img.next.map((n) => `<div class="media-tile" style="width:80px;height:80px;border-color:var(--primary)">${n}</div>`).join("") || "无"}</div>
                           </td>
                         </tr>
                         <tr>
@@ -1691,10 +1938,26 @@
                           </td>
                           <td style="padding:12px;border-bottom:1px solid var(--border)">橱窗图</td>
                           <td style="padding:12px;border-bottom:1px solid var(--border)">
-                            <div style="display:flex;gap:10px;flex-wrap:wrap">${(winImg.old || []).slice(0, 5).map(n => `<div class="media-tile" style="width:80px;height:80px">${n}</div>`).join("") || "无"}</div>
+                            <div style="display:flex;gap:10px;flex-wrap:wrap">${
+                              (winImg.old || [])
+                                .slice(0, 5)
+                                .map(
+                                  (n) =>
+                                    `<div class="media-tile" style="width:80px;height:80px">${n}</div>`,
+                                )
+                                .join("") || "无"
+                            }</div>
                           </td>
                           <td style="padding:12px;border-bottom:1px solid var(--border)">
-                            <div style="display:flex;gap:10px;flex-wrap:wrap">${(winImg.next || []).slice(0, 5).map(n => `<div class="media-tile" style="width:80px;height:80px;border-color:var(--primary)">${n}</div>`).join("") || "无"}</div>
+                            <div style="display:flex;gap:10px;flex-wrap:wrap">${
+                              (winImg.next || [])
+                                .slice(0, 5)
+                                .map(
+                                  (n) =>
+                                    `<div class="media-tile" style="width:80px;height:80px;border-color:var(--primary)">${n}</div>`,
+                                )
+                                .join("") || "无"
+                            }</div>
                           </td>
                         </tr>
                       </tbody>
@@ -1741,7 +2004,7 @@
                             <td style="padding:10px 12px;text-align:center;border-bottom:1px solid #f0f0f0">1</td>
                             <td style="padding:10px 12px;border-bottom:1px solid #f0f0f0">
                                <div style="position:relative">
-                                 <input class="control" style="width:100%;height:28px;${!isPending ? "background:#f5f5f5" : "background:#fff"}" value="${isYLH ? '防护用品 / 一次性口罩' : '消毒用品 / 其它消毒用品'}" ${!isPending ? "disabled" : ""} />
+                                 <input class="control" style="width:100%;height:28px;${!isPending ? "background:#f5f5f5" : "background:#fff"}" value="${isYLH ? "防护用品 / 一次性口罩" : "消毒用品 / 其它消毒用品"}" ${!isPending ? "disabled" : ""} />
                                  <span style="position:absolute;right:8px;top:6px;color:var(--muted)">v</span>
                                </div>
                             </td>
@@ -1783,7 +2046,41 @@
                       <div style="height:16px"></div>
                       <div style="font-weight:700;margin-bottom:10px">${required("商品橱窗图")}</div>
                       <div class="media-grid" style="grid-template-columns:repeat(5, 1fr)">
-                        ${(windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5).map((n, i) => '<div class="media-tile" data-act="preview-media" data-title="商品橱窗图预览" data-items="' + encodeURIComponent(JSON.stringify((windowImages.length ? windowImages : ["橱窗图1", "橱窗图2", "橱窗图3", "橱窗图4", "橱窗图5"]).slice(0, 5))) + '" data-idx="' + i + '">' + n + "</div>").join("")}
+                        ${(windowImages.length
+                          ? windowImages
+                          : [
+                              "橱窗图1",
+                              "橱窗图2",
+                              "橱窗图3",
+                              "橱窗图4",
+                              "橱窗图5",
+                            ]
+                        )
+                          .slice(0, 5)
+                          .map(
+                            (n, i) =>
+                              '<div class="media-tile" data-act="preview-media" data-title="商品橱窗图预览" data-items="' +
+                              encodeURIComponent(
+                                JSON.stringify(
+                                  (windowImages.length
+                                    ? windowImages
+                                    : [
+                                        "橱窗图1",
+                                        "橱窗图2",
+                                        "橱窗图3",
+                                        "橱窗图4",
+                                        "橱窗图5",
+                                      ]
+                                  ).slice(0, 5),
+                                ),
+                              ) +
+                              '" data-idx="' +
+                              i +
+                              '">' +
+                              n +
+                              "</div>",
+                          )
+                          .join("")}
                       </div>
                     </div>
                   </div>
@@ -1806,151 +2103,166 @@
               <button class="btn primary" data-act="approve" data-id="${t.id}" ${!isPending ? "disabled" : ""}>审核通过 (保存)</button>
             </div>
           </div>
-        `
-      }
+        `;
+      };
 
       const parseRoute = () => {
-        const h = window.location.hash || "#/audit-list"
-        const cleaned = h.startsWith("#/") ? h.slice(2) : h.startsWith("#") ? h.slice(1) : h
-        const p = cleaned.split("/").filter(Boolean)
-        if (!p.length) return { name: "audit-list" }
-        if (p[0] === "audit-list") return { name: "audit-list" }
-        if (p[0] === "audit" && p[1] === "new" && p[2]) return { name: "new", id: p[2] }
-        if (p[0] === "audit" && p[1] === "edit" && p[2]) return { name: "edit", id: p[2] }
-        if (p[0] === "shots") return { name: "shots" }
-        return { name: "audit-list" }
-      }
+        const h = window.location.hash || "#/audit-list";
+        const cleaned = h.startsWith("#/")
+          ? h.slice(2)
+          : h.startsWith("#")
+            ? h.slice(1)
+            : h;
+        const p = cleaned.split("/").filter(Boolean);
+        if (!p.length) return { name: "audit-list" };
+        if (p[0] === "audit-list") return { name: "audit-list" };
+        if (p[0] === "audit" && p[1] === "new" && p[2])
+          return { name: "new", id: p[2] };
+        if (p[0] === "audit" && p[1] === "edit" && p[2])
+          return { name: "edit", id: p[2] };
+        if (p[0] === "shots") return { name: "shots" };
+        return { name: "audit-list" };
+      };
 
       const syncNav = (name) => {
         document.querySelectorAll(".nav-item").forEach((n) => {
-          const key = n.getAttribute("data-nav")
+          const key = n.getAttribute("data-nav");
           let active = false;
-          if (name === "audit-list" || name === "new" || name === "edit") active = (key === "audit-list")
-          else if (name === "shots") active = (key === "shots")
-          n.classList.toggle("active", active)
-        })
-      }
+          if (name === "audit-list" || name === "new" || name === "edit")
+            active = key === "audit-list";
+          else if (name === "shots") active = key === "shots";
+          n.classList.toggle("active", active);
+        });
+      };
 
       const render = () => {
-        const r = parseRoute()
-        syncNav(r.name)
-        if (r.name === "audit-list") renderAuditList()
-        else if (r.name === "new") renderNew(r.id)
-        else if (r.name === "edit") renderEdit(r.id)
-        else if (r.name === "shots") renderShots()
-        else renderAuditList()
-      }
+        const r = parseRoute();
+        syncNav(r.name);
+        if (r.name === "audit-list") renderAuditList();
+        else if (r.name === "new") renderNew(r.id);
+        else if (r.name === "edit") renderEdit(r.id);
+        else if (r.name === "shots") renderShots();
+        else renderAuditList();
+      };
 
       document.querySelectorAll(".nav-item").forEach((n) => {
         n.addEventListener("click", () => {
-          const key = n.getAttribute("data-nav")
-          navTo("#/" + key)
-        })
-      })
+          const key = n.getAttribute("data-nav");
+          navTo("#/" + key);
+        });
+      });
 
       document.addEventListener("click", (e) => {
-        const el = e.target.closest ? e.target.closest('[data-act]') : null
-        if (!el) return
-        const act = el.getAttribute("data-act")
-        if (!act) return
-        if (act === "close") closeModal()
+        const el = e.target.closest ? e.target.closest("[data-act]") : null;
+        if (!el) return;
+        const act = el.getAttribute("data-act");
+        if (!act) return;
+        if (act === "close") closeModal();
         else if (act === "back") {
-          const r = parseRoute()
-          if (r.name === "new") navTo("#/audit-list")
-          else if (r.name === "edit") navTo("#/audit-list")
-          else navTo("#/audit-list")
-        }
-        else if (act === "open") {
-          const id = el.getAttribute("data-id")
-          const t = getTicket(id)
-          if (!t) return
-          navTo(t.type === "NEW" ? `#/audit/new/${t.id}` : `#/audit/edit/${t.id}`)
+          const r = parseRoute();
+          if (r.name === "new") navTo("#/audit-list");
+          else if (r.name === "edit") navTo("#/audit-list");
+          else navTo("#/audit-list");
+        } else if (act === "open") {
+          const id = el.getAttribute("data-id");
+          const t = getTicket(id);
+          if (!t) return;
+          navTo(
+            t.type === "NEW" ? `#/audit/new/${t.id}` : `#/audit/edit/${t.id}`,
+          );
         } else if (act === "approve") {
-          const id = el.getAttribute("data-id")
-          approve(id)
+          const id = el.getAttribute("data-id");
+          approve(id);
         } else if (act === "reject") {
-          const id = el.getAttribute("data-id")
-          reject(id)
+          const id = el.getAttribute("data-id");
+          reject(id);
         } else if (act === "confirm-approve") {
-          const id = el.getAttribute("data-id")
-          const t = getTicket(id)
-          if (!t) return
-          closeModal()
-          applyApprove(t)
+          const id = el.getAttribute("data-id");
+          const t = getTicket(id);
+          if (!t) return;
+          closeModal();
+          applyApprove(t);
         } else if (act === "confirm-reject") {
-          const id = el.getAttribute("data-id")
-          const t = getTicket(id)
-          if (!t) return
-          const v = ($("#rejectReason") && $("#rejectReason").value ? $("#rejectReason").value.trim() : "")
+          const id = el.getAttribute("data-id");
+          const t = getTicket(id);
+          if (!t) return;
+          const v =
+            $("#rejectReason") && $("#rejectReason").value
+              ? $("#rejectReason").value.trim()
+              : "";
           if (!v) {
-            toast("请填写驳回原因")
-            return
+            toast("请填写驳回原因");
+            return;
           }
-          t.status = "REJECTED"
-          t.rejectReason = v
-          closeModal()
-          toast("已驳回并记录原因")
-          navTo("#/audit-list")
-          render()
+          t.status = "REJECTED";
+          t.rejectReason = v;
+          closeModal();
+          toast("已驳回并记录原因");
+          navTo("#/audit-list");
+          render();
         } else if (act === "retry") {
-          const id = el.getAttribute("data-id")
-          retryCallback(id)
+          const id = el.getAttribute("data-id");
+          retryCallback(id);
         } else if (act === "reset") {
-          state.ui.status = ""
-          state.ui.keyword = ""
-          render()
+          state.ui.status = "";
+          state.ui.keyword = "";
+          render();
         } else if (act === "search") {
-          const s = $("#filterStatus")
-          const k = $("#filterKeyword")
-          state.ui.status = s ? s.value : ""
-          state.ui.keyword = k ? k.value : ""
-          render()
+          const s = $("#filterStatus");
+          const k = $("#filterKeyword");
+          state.ui.status = s ? s.value : "";
+          state.ui.keyword = k ? k.value : "";
+          render();
         } else if (act === "preview-media") {
-          const title = el.getAttribute("data-title")
-          const items = JSON.parse(decodeURIComponent(el.getAttribute("data-items") || "[]"))
-          const idx = Number(el.getAttribute("data-idx") || "0")
-          previewMedia(title, items, idx)
+          const title = el.getAttribute("data-title");
+          const items = JSON.parse(
+            decodeURIComponent(el.getAttribute("data-items") || "[]"),
+          );
+          const idx = Number(el.getAttribute("data-idx") || "0");
+          previewMedia(title, items, idx);
         } else if (act === "prev-media" || act === "next-media") {
-          const title = decodeURIComponent(el.getAttribute("data-title") || "")
-          const items = JSON.parse(decodeURIComponent(el.getAttribute("data-items") || "[]"))
-          const idx = Number(el.getAttribute("data-idx") || "0")
-          const next = act === "prev-media" ? idx - 1 : idx + 1
-          previewMedia(title, items, next)
+          const title = decodeURIComponent(el.getAttribute("data-title") || "");
+          const items = JSON.parse(
+            decodeURIComponent(el.getAttribute("data-items") || "[]"),
+          );
+          const idx = Number(el.getAttribute("data-idx") || "0");
+          const next = act === "prev-media" ? idx - 1 : idx + 1;
+          previewMedia(title, items, next);
         } else if (act === "download") {
-          toast("原型演示：此处触发下载")
+          toast("原型演示：此处触发下载");
         }
-      })
+      });
 
       document.addEventListener("change", (e) => {
-        const el = e.target
-        if (!el) return
-        const act = el.getAttribute("data-act")
+        const el = e.target;
+        if (!el) return;
+        const act = el.getAttribute("data-act");
         if (act === "toggle-diff") {
-          const id = el.getAttribute("data-id")
-          const idx = Number(el.getAttribute("data-idx") || "0")
-          const t = getTicket(id)
-          if (!t || !t.diffs) return
-          t.diffs[idx].apply = !!el.checked
-          render()
+          const id = el.getAttribute("data-id");
+          const idx = Number(el.getAttribute("data-idx") || "0");
+          const t = getTicket(id);
+          if (!t || !t.diffs) return;
+          t.diffs[idx].apply = !!el.checked;
+          render();
         } else if (act === "toggle-img") {
-          const id = el.getAttribute("data-id")
-          const t = getTicket(id)
-          if (!t || !t.imageDiff) return
-          t.imageDiff.apply = !!el.checked
-          render()
+          const id = el.getAttribute("data-id");
+          const t = getTicket(id);
+          if (!t || !t.imageDiff) return;
+          t.imageDiff.apply = !!el.checked;
+          render();
         } else if (act === "toggle-winimg") {
-          const id = el.getAttribute("data-id")
-          const t = getTicket(id)
-          if (!t || !t.windowImageDiff) return
-          t.windowImageDiff.apply = !!el.checked
-          render()
+          const id = el.getAttribute("data-id");
+          const t = getTicket(id);
+          if (!t || !t.windowImageDiff) return;
+          t.windowImageDiff.apply = !!el.checked;
+          render();
         }
-      })
+      });
 
-      window.addEventListener("hashchange", render)
-      if (!window.location.hash) navTo("#/audit-list")
-      render()
-      toast("原型已加载")
+      window.addEventListener("hashchange", render);
+      if (!window.location.hash) navTo("#/audit-list");
+      render();
+      toast("原型已加载");
     </script>
   </body>
 </html>
