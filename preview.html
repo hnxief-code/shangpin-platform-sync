@@ -1628,12 +1628,11 @@
                     <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">基础信息 <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
                     <div style="padding:24px">
                       <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品编码")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.productCode)}" disabled /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品名称")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.productName || t.goodsName)}" /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品条码")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.barcode || t.barcode)}" /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("规格")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.spec)}" /></div>
-
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("单位")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.unit)}" /></div>
+
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("产地")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.origin)}" /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("保质期(天)")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.shelfLifeDays)}" /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("生产企业")}</div><input class="control" style="flex:1;${roStyle}" ${dis} value="${value(f.manufacturer)}" /></div>
@@ -1865,7 +1864,7 @@
                 </div>
 
                 <div style="background:#fff;border-radius:4px;margin-bottom:16px">
-                  <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0">资料变更比对 (仅包含：商品主图、橱窗图、商品编码、商品名称、商品条码、规格、单位、产地、保质期、生产企业)</div>
+                  <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0">资料变更比对 (仅包含：商品主图、橱窗图、商品名称、商品条码、规格、单位、产地、保质期、生产企业)</div>
                   <div style="padding:24px">
                     <table style="width:100%;border-collapse:collapse;border:1px solid var(--border);text-align:left;font-size:14px">
                       <thead>
@@ -1881,7 +1880,6 @@
                           (t.diffs || [])
                             .map((d, i) => {
                               const allowKeys = [
-                                "productCode",
                                 "goodsName",
                                 "productName",
                                 "barcode",
@@ -2021,12 +2019,11 @@
                     <div style="padding:16px 24px;font-weight:600;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between">基础信息 <span style="font-weight:normal;color:var(--muted);font-size:13px;cursor:pointer">收起</span></div>
                     <div style="padding:24px">
                       <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px 24px">
-                        <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品编码")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.productCode)}" disabled /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品名称")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.productName || t.goodsName)}" disabled /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("商品条码")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.barcode || t.barcode)}" disabled /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("规格")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.spec)}" disabled /></div>
-
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("单位")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.unit)}" disabled /></div>
+
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("产地")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.origin)}" disabled /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("保质期(天)")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.shelfLifeDays)}" disabled /></div>
                         <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;text-align:right">${required("生产企业")}</div><input class="control" style="flex:1;background:#f5f5f5" value="${value(f.manufacturer)}" disabled /></div>
